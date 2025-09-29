@@ -1,160 +1,111 @@
-import React, { useState, useEffect } from "react";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
+import React from "react";
+import { Facebook, Twitter, Youtube, Linkedin } from "lucide-react";
 
-// Custom "X" icon
-const XIcon = ({ size = 28, className = "" }) => (
-  <svg
-    viewBox="0 0 24 24"
-    width={size}
-    height={size}
-    className={className}
-    fill="none"
-  >
-    <path
-      d="M4 4L20 20M20 4L4 20"
-      stroke="currentColor"
-      strokeWidth="2.6"
-      strokeLinecap="round"
-    />
-  </svg>
-);
+export default function MAFCoFooter() {
+  return (<div className="relative w-full h-screen bg-gradient-to-b from-[#f6fafc] via-[#e6f0f5] to-[#14475a] overflow-hidden z-10 flex items-start justify-center">
+    {/* Large faint watermark text at the bottom */}
+    <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center z-0">
+  <h1 className="hidden lg:block text-[16vw] leading-none font-extrabold select-none 
+                 text-transparent bg-clip-text 
+                 bg-gradient-to-t from-white/5 via-white/50 to-white">
+    MAF &amp; CO
+  </h1>
+</div>
 
-const Footer = () => {
-  const [animateLetters, setAnimateLetters] = useState(false);
+  
+    {/* Card */}
+    <div className="relative z-10 w-4/5 bg-white rounded-3xl shadow-xl px-10 sm:px-14 lg:px-20 py-10 overflow-hidden translate-y-16">
+        {/* Top Section */}
+        <div className="flex flex-col lg:flex-row justify-between gap-16">
+          {/* Left Side */}
+          <div className="flex-1 flex flex-col gap-8">
+            {/* Logo1 smaller */}
+            <img 
+              src="/logo1.png" 
+              alt="MAF & Co" 
+              className="w-1/3 h-auto"
+            />
 
-  useEffect(() => {
-    setAnimateLetters(true);
-  }, []);
+            {/* Text */}
+            <p className="text-base text-gray-600 leading-relaxed max-w-lg">
+              Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting
+              Industry. Lorem Ipsum Is Simply Dummy Text
+            </p>
 
-  const navigationLinks = [
-    { title: "Home", href: "/", active: true },
-    { title: "About", href: "/about" },
-    { title: "Blog", href: "/blog" },
-    { title: "Projects", href: "/project" },
-  ];
-  const secondaryLinks = [
-    { title: "Project Single", href: "/single-page" },
-    { title: "Blog Single", href: "blog-single" },
-    { title: "Contact", href: "/contact" },
-    { title: "404", href: "*" },
-    { title: "Privacy Policy", href: "/privacy-policy" },
-  ];
-  const legalLinks = [
-    { title: "Term & Condition", href: "#" },
-    { title: "Licence", href: "#" },
-    { title: "Changelog", href: "#" },
-    { title: "Instructions", href: "#" },
-    { title: "Style Guide", href: "#" },
-  ];
+            {/* Social + Email */}
+            <div className="flex items-center justify-between flex-wrap gap-8">
+              {/* Social Icons */}
+              <div className="flex items-center gap-4">
+                {[Facebook, Twitter, Youtube, Linkedin].map((Icon, idx) => (
+                  <a
+                    key={idx}
+                    href="#"
+                    className="w-12 h-12 flex items-center justify-center rounded-full border border-gray-300 text-gray-600 hover:bg-gray-800 hover:text-white transition"
+                  >
+                    <Icon className="w-6 h-6" />
+                  </a>
+                ))}
+              </div>
 
-  // Colors
-  const bgTint = "#F6F4EC";
-  const tileTint = "#F2F0E9";
-  const darkInk = "#24342E";
-  const accent = "#961c1f";
-
-  return (
-    <footer className="py-12 sm:py-16" style={{ backgroundColor: bgTint }}>
-      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-24">
-
-        
-
-
-
-        {/* 🔹 Middle Section */}
-        <div className="mb-12">
-          <div className="grid gap-6 lg:grid-cols-2">
-            {/* Link block - Left half */}
-            <div
-              className="rounded-xl p-6 sm:p-8 h-full"
-              style={{ backgroundColor: tileTint }}
-            >
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-10 text-sm sm:text-base">
-                {/* Primary */}
-                <div className="space-y-2 sm:space-y-3">
-                  {navigationLinks.map((link, idx) => (
-                    <a
-                      key={idx}
-                      href={link.href}
-                      className={`block ${link.active ? "font-medium" : "hover:opacity-80"
-                        }`}
-                      style={{ color: link.active ? accent : darkInk }}
-                    >
-                      {link.title}
-                    </a>
-                  ))}
-                </div>
-                <div className="space-y-2 sm:space-y-3">
-                  {secondaryLinks.map((link, idx) => (
-                    <a
-                      key={idx}
-                      href={link.href}
-                      className="block hover:opacity-80"
-                      style={{ color: darkInk }}
-                    >
-                      {link.title}
-                    </a>
-                  ))}
-                </div>
-                {/* Legal */}
-                <div className="space-y-2 sm:space-y-3">
-                  {legalLinks.map((link, idx) => (
-                    <a
-                      key={idx}
-                      href={link.href}
-                      className="block hover:opacity-80"
-                      style={{ color: darkInk }}
-                    >
-                      {link.title}
-                    </a>
-                  ))}
-                </div>
+              {/* Email */}
+              <div>
+                <p className="text-lg text-gray-500">Catch us here</p>
+                <p className="text-2xl font-medium text-gray-800">
+                  info@mafandco.com
+                </p>
               </div>
             </div>
 
-            {/* Social tiles - Right half */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 h-full">
-              {[
-                { key: "fb", node: <Facebook size={32} />, href: "#" },
-                { key: "ig", node: <Instagram size={32} />, href: "#" },
-                { key: "li", node: <Linkedin size={32} />, href: "#" },
-                { key: "x", node: <XIcon size={32} />, href: "#" },
-              ].map((item) => (
-                <a
-                  key={item.key}
-                  href={item.href}
-                  className="rounded-xl flex items-center justify-center h-full py-6 transition-colors duration-300"
-                  style={{ 
-                    backgroundColor: tileTint, 
-                    color: darkInk 
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = accent;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = darkInk;
-                  }}
-                >
-                  {item.node}
-                </a>
-              ))}
+            {/* Copyright */}
+            <p className="text-base text-gray-500">
+              Lorem Ipsum Is Simply Dummy Text
+            </p>
+          </div>
+
+          {/* Right Side */}
+          <div className="flex-1 flex flex-col lg:flex-row items-center justify-between gap-12">
+            {/* Links */}
+            <div className="grid grid-cols-2 gap-8 flex-1">
+              <div>
+                <h4 className="text-base font-semibold text-gray-800 mb-5">
+                  Essential pages
+                </h4>
+                <ul className="space-y-3 text-base text-gray-600">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="/about">About Us</a></li>
+                  <li><a href="/projects">Projects</a></li>
+                  <li><a href="events">Events</a></li>
+                </ul>
+              </div>
+              <div className="pt-10 lg:pt-8">
+                <ul className="space-y-3 text-base text-gray-600">
+                  <li><a href="/contacts">Contact Us</a></li>
+                  <li><a href="#">Careers</a></li>
+                </ul>
+              </div>
             </div>
+
+            {/* Logo2 inside right section, right-center */}
+            <img
+              src="/logo2.png"
+              alt="MAF & Co Secondary Logo"
+              className="h-72 w-auto opacity-80"
+            />
           </div>
         </div>
 
-        {/* 🔹 Bottom Section */}
-        <div>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm sm:text-base">
-            <div style={{ color: `${darkInk}B3` }}>
-              Copyright 2025 Gulf. All rights reserved.
-            </div>
-
+        {/* Bottom Bar */}
+        <div className="mt-16 flex flex-col sm:flex-row justify-between items-center border-t border-gray-200 pt-8 gap-6">
+          <p className="text-sm text-gray-500">
+            Lorem Ipsum Is Simply Dummy Text
+          </p>
+          <div className="flex gap-8 text-sm text-gray-600">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Cookie Policy</a>
           </div>
         </div>
-
       </div>
-    </footer>
+    </div>
   );
-};
-
-export default Footer;
+}

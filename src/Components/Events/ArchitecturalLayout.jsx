@@ -4,31 +4,27 @@ function ArchitecturalLayout() {
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
       {/* Left Panel - Dark Blue Navigation */}
-      <div className="w-full lg:w-1/2 bg-primary text-white px-6 lg:px-28 py-28 flex flex-col">
+      <div className="w-full lg:w-1/2 bg-primary text-white px-6 lg:px-28 py-16 sm:py-20 lg:py-28 flex flex-col">
         <div className="space-y-10 lg:space-y-28">
           {/* Navigation Items */}
           <div>
             <h2 className="text-2xl lg:text-3xl xl:text-5xl font-semibold">
-               Lorem Ipsum Is Simply Dummy Text
-
+              Lorem Ipsum Is Simply Dummy Text
             </h2>
             <div className="w-full lg:w-4/5 h-px bg-gray-400 mt-4"></div>
           </div>
           <div>
             <h2 className="text-2xl lg:text-3xl xl:text-5xl font-semibold">
-              Lorem Ipsum Is 
-
+              Lorem Ipsum Is
             </h2>
             <div className="w-full lg:w-4/5 h-px bg-gray-400 mt-4"></div>
           </div>
-
           <div>
             <h2 className="text-2xl lg:text-3xl xl:text-5xl font-semibold">
               Lorem Ipsum
             </h2>
             <div className="w-full lg:w-4/5 h-px bg-gray-400 mt-4"></div>
           </div>
-
           <div>
             <h2 className="text-2xl lg:text-3xl xl:text-5xl font-semibold">
               Lorem Ipsum Is Simply Dummy Text
@@ -39,7 +35,7 @@ function ArchitecturalLayout() {
       </div>
 
       {/* Right Panel - Hero Image */}
-      <div className="w-full lg:w-1/2 relative min-h-96 lg:min-h-screen">
+      <div className="w-full lg:w-1/2 relative min-h-[300px] sm:min-h-[400px] md:min-h-[500px] lg:min-h-screen">
         {/* Actual Image */}
         <img
           src="/Container.png"
@@ -47,18 +43,12 @@ function ArchitecturalLayout() {
           className="absolute inset-0 w-full h-full object-cover"
         />
 
-        {/* Bottom Text Overlay */}
-        <div className="absolute bottom-4 lg:bottom-8 left-4 lg:left-8 right-4 lg:right-8">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end space-y-2 sm:space-y-0 text-white text-sm lg:text-base">
-            <div className="bg-black bg-opacity-50 px-3 py-1 rounded backdrop-blur-sm">
-              Lorem Ipsum is s
-            </div>
-            <div className="bg-black bg-opacity-50 px-3 py-1 rounded backdrop-blur-sm">
-              Lorem Ipsum is simple
-            </div>
-            <div className="bg-black bg-opacity-50 px-3 py-1 rounded backdrop-blur-sm">
-              Lorem Ipsum is
-            </div>
+        {/* Bottom Text Overlay - Centered Glass Container */}
+        <div className="absolute bottom-6 sm:bottom-10 left-1/2 transform -translate-x-1/2 w-full px-4">
+          <div className="bg-gray-900/30 backdrop-blur-md rounded-xl px-6 sm:px-10 py-6 flex flex-wrap justify-center sm:justify-between items-center gap-4 text-white text-sm lg:text-base max-w-[90%] lg:max-w-3xl mx-auto text-center">
+            <span>Lorem Ipsum is s</span>
+            <span>Lorem Ipsum is simple</span>
+            <span>Lorem Ipsum is</span>
           </div>
         </div>
       </div>

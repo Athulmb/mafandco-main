@@ -1,12 +1,12 @@
 import React from 'react';
 
 const EventCard = ({ image, title, description, date, badge }) => (
-  <div className="bg-transparent overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 h-full flex flex-col gap-8">
+  <div className="bg-transparent overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 h-full flex flex-col gap-8 min-h-[520px]">
     <div className="relative flex-shrink-0">
       <img 
         src={image} 
         alt={title}
-        className="w-full h-64 sm:h-56 md:h-60 lg:h-72 object-cover rounded-xl"
+        className="w-full h-72 sm:h-64 md:h-72 lg:h-72 xl:h-96 object-cover rounded-xl"
       />
       {date && (
         <div className="absolute top-3 right-3 bg-black bg-opacity-70 text-white px-3 py-1.5 rounded text-xs font-medium">
@@ -25,6 +25,7 @@ const EventCard = ({ image, title, description, date, badge }) => (
     </div>
   </div>
 );
+
 
 const UpcomingEvents = () => {
   const events = [
