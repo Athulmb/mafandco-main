@@ -1,111 +1,77 @@
 import React from 'react';
-import { MessageCircle, ArrowRight } from 'lucide-react';
+import { MessageCircle, ArrowRight, MessageCircleMore } from 'lucide-react';
 
 const MeetOurTeam = () => {
   const teamMembers = [
-    {
-      id: 1,
-      name: "John Baby",
-      position: "CEO",
-      image: "/team1.png",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      position: "CFO",
-      image: "/team2.png",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    },
-    {
-      id: 3,
-      name: "Indhu Lekha",
-      position: "Manager",
-      image: "/team3.png",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    },
-    {
-      id: 4,
-      name: "John Doe",
-      position: "Manager",
-      image: "/team4.png",
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    }
+    { id: 1, name: "John Baby", position: "CEO", image: "/team1.png", description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
+    { id: 2, name: "Jane Smith", position: "CFO", image: "/team2.png", description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
+    { id: 3, name: "Indhu Lekha", position: "Manager", image: "/team3.png", description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
+    { id: 4, name: "John Doe", position: "Manager", image: "/team4.png", description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." }
   ];
 
   return (
-    <div className="bg-gray-50 py-8 sm:py-12 lg:py-16">
-      <div className="max-w-full mx-auto px-4 sm:px-6 md:px-10 lg:px-20">
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-          
-          {/* Left Side - Text Content */}
-          <div className="w-full lg:w-2/5 lg:sticky lg:top-8 lg:self-start">
-            <p className="text-gray-600 text-sm font-medium mb-3">Your Partners in Real Estate</p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 lg:mb-6 leading-tight">
-              <span className="text-teal-500">Meet Our</span>{' '}
-              <span className="text-gray-900">Team</span>
-            </h2>
-            <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            </p>
-          </div>
+    <div className="bg-backgound py-16 px-6 sm:px-10 lg:px-40">
+      <div className="flex flex-col lg:flex-row gap-12">
 
-          {/* Right Side - Team Cards Grid */}
-          <div className="w-full lg:w-3/5">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              {teamMembers.map((member) => (
-                <div 
-                  key={member.id} 
-                  className="bg-white rounded-2xl shadow-sm hover:shadow-lg border border-gray-100 transition-all duration-300 mx-auto w-full max-w-sm flex flex-col min-h-[500px] lg:min-h-[580px]"
-                >
-                  {/* Image Container */}
-                  <div className="relative bg-teal-50 h-64 sm:h-72 lg:h-80 flex items-center justify-center rounded-t-2xl overflow-hidden m-3 ">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="h-full w-auto object-contain"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
-                      }}
-                    />
-                    {/* Fallback placeholder */}
-                    <div className="hidden w-20 h-20 bg-teal-200 rounded-full items-center justify-center">
-                      <span className="text-teal-600 text-2xl font-bold">
-                        {member.name.split(' ').map(n => n[0]).join('')}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  {/* Content */}
-                  <div className="p-4 sm:p-6 lg:p-8 flex-1">
-                    <div className="mb-4">
-                      <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-1">{member.name}</h3>
-                      <p className="text-teal-600 font-semibold text-sm mb-3">{member.position}</p>
-                      <p className="text-gray-600 text-sm leading-relaxed">
-                        {member.description}
-                      </p>
-                    </div>
-                    
-                    {/* Action Buttons */}
-                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
-                      <button className="flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 text-sm font-medium">
-                        <MessageCircle className="w-4 h-4" />
-                        Contact
-                      </button>
-                      
-                      <button className="flex items-center justify-center gap-1 text-teal-600 hover:text-teal-700 transition-colors duration-200 group text-sm font-medium px-4 py-2">
-                        Learn More
-                        <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" />
-                      </button>
-                    </div>
+        {/* Left Section - Text (1/3 width) */}
+        <div className="w-full lg:w-1/3">
+          <p className="text-gray-600 text-base sm:text-lg font-medium mb-4">Your Partners in Real Estate</p>
+          <h2 className="text-4xl sm:text-5xl lg:text-7xl tracking-wide font-extrabold mb-6 leading-tight 
+               bg-gradient-to-r from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text">
+  Meet Our Team
+</h2>
+
+          <p className="text-gray-600 leading-relaxed text-base sm:text-lg">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          </p>
+        </div>
+
+        {/* Right Section - Team Members (2/3 width) */}
+        <div className="w-full lg:w-2/3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+            {teamMembers.map((member) => (
+              <div 
+                key={member.id} 
+                className="bg-backgound rounded-3xl  hover:shadow-xl border-[3px] border-gray-200 transition-all duration-300 mx-auto w-full max-w-md flex flex-col min-h-[550px] lg:min-h-[620px]"
+              >
+                {/* Image */}
+                <div className="relative bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] h-72 sm:h-80 lg:h-96 flex items-center justify-center  overflow-hidden m-4">
+                  {/* Fallback placeholder */}
+                  <div className="hidden w-24 h-24 bg-teal-200 rounded-full items-center justify-center">
+                    <span className="text-primary text-3xl font-bold">
+                      {member.name.split(' ').map(n => n[0]).join('')}
+                    </span>
                   </div>
                 </div>
-              ))}
-            </div>
+                
+                {/* Content */}
+                <div className="p-6 sm:p-8 lg:p-10 flex-1">
+                  <div className="mb-6">
+                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">{member.name}</h3>
+                    <p className="text-primary/70 font-semibold text-sm sm:text-base mb-4">{member.position}</p>
+                    <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+                      {member.description}
+                    </p>
+                  </div>
+                  
+                  {/* Action Buttons */}
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+                    <button className="flex items-center justify-center gap-2 bg-primary hover:bg-teal-700 text-white px-5 py-3 rounded-full transition-colors duration-200 text-sm sm:text-base font-medium">
+                      <MessageCircleMore className="w-5 h-5" />
+                      Contact
+                    </button>
+                    
+                    <button className="flex items-center justify-center gap-2 text-primary hover:text-teal-700 transition-colors duration-200 group text-sm sm:text-base font-medium px-5 py-3">
+                      Learn More
+                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-
         </div>
+
       </div>
     </div>
   );

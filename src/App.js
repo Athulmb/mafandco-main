@@ -6,6 +6,8 @@ import Home from "./Pages/Home";
 // import Contact from "./Pages/Contact";
 import About from "./Pages/About";
 import Events from "./Pages/Events";
+import Projects from "./Pages/Projects";
+import Contacts from "./Pages/Contacts";
 
 
 const App = () => {
@@ -15,10 +17,10 @@ const App = () => {
         <Routes>
           {/* Home page with multiple sections */}
           <Route path="/" element={<Home />} />
-          {/* <Route path="/contact" element={<Contact />} /> */}
+          <Route path="/contact" element={<Contacts/>} />
           <Route path="/about" element={<About />} />
           <Route path="/events" element={<Events />} />
-          {/* <Route path="/service" element={<ServicesPage />} /> */}
+          <Route path="/projects" element={<Projects />} />
 
 
 

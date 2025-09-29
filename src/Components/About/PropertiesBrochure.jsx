@@ -3,11 +3,15 @@ import React from 'react';
 function PropertiesBrochure() {
   return (
     <div id="full" className="w-full bg-white shadow-2xl px-6 sm:px-8 md:px-12 lg:px-24 py-8">
+          
+
+
       <div className="flex min-h-screen">
+   
+
         {/* Left Side - Dummy Text Area (30%) - Hidden on md and below */}
         <div className="hidden lg:block w-[30%] bg-transparent p-10 flex-col justify-center">
           <div className="space-y-6">
-            <p className="text-base text-gray-500 uppercase tracking-wider">Dummy Text</p>
             
             <div className="space-y-4">
               <div className="h-5 bg-gray-300 rounded opacity-60"></div>

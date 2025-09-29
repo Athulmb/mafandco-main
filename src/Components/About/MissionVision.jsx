@@ -2,12 +2,12 @@ import React from 'react';
 
 export default function MissionVision() {
     return (
-        <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-6xl mx-auto">
+        <div className="h-auto bg-backgound py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
                 <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
                     {/* Our Mission Card - Landscape (wider than tall) */}
-                    <div className="bg-black/5 rounded-xl shadow-md p-8 lg:p-10 w-full lg:w-5/6 lg:h-3/5">
-                        <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+                    <div className="bg-white/50 rounded-xl shadow-md p-8 lg:p-12 w-full lg:w-4/5 lg:h-4/5">
+                        <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6">
                             Our Mission
                         </h2>
                         <p className="text-gray-700 text-base lg:text-lg leading-relaxed">
@@ -24,8 +24,8 @@ export default function MissionVision() {
                     </div>
 
                     {/* Our Vision Card - Portrait (taller than wide) */}
-                    <div className="bg-transparent p-8 lg:p-10 rounded-2xl shadow-sm border-2 border-gray-200 w-full lg:w-3/5 lg:h-auto">
-                        <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+                    <div className="bg-transparent p-8 lg:p-12 rounded-2xl shadow-sm border-[3px] border-black/20 w-full lg:w-2/3 lg:h-[80%]">
+                        <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6">
                             Our Vision
                         </h2>
                         <p className="text-gray-700 text-base lg:text-lg leading-relaxed">
@@ -44,7 +44,6 @@ export default function MissionVision() {
                             estate in Dubai.
                         </p>
                     </div>
-
                 </div>
             </div>
         </div>

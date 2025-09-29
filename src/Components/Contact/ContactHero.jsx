@@ -1,29 +1,29 @@
 import React from "react";
 
-const aboutHeroData = {
+const contactHeroData = {
   backgroundImage: "AboutHero.png", // 🔹 Replace with your image path
-  title: "About the Company",
+  title: "Tailored Real Estate Solutions To Meet Every need",
   underline: true,
 };
 
-const AboutHero = () => {
+const ContactHero = () => {
   return (
     <section className="w-full flex">
       {/* Image */}
       <div className="w-full relative">
         <img
-          src={aboutHeroData.backgroundImage}
-          alt={aboutHeroData.title}
-          className="w-full h-auto filter " // 🔹 brighten the image
+          src={contactHeroData.backgroundImage}
+          alt={contactHeroData.title}
+          className="w-full h-auto filter " // slightly brighten image
         />
         {/* Overlay */}
 
         {/* Content */}
-        <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 max-w-6xl px-4 sm:px-6 md:px-10 lg:px-20">
+        <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 max-w-4xl px-4 sm:px-6 md:px-10 lg:px-20">
           <h1 className="text-white text-2xl pt-4 sm:text-4xl md:text-5xl lg:text-7xl font-lufga font-bold text-left">
-            {aboutHeroData.title}
+            {contactHeroData.title}
           </h1>
-          {aboutHeroData.underline && (
+          {contactHeroData.underline && (
             <div className="mt-2 w-1/2 h-1 bg-white"></div>
           )}
         </div>
@@ -32,4 +32,4 @@ const AboutHero = () => {
   );
 };
 
-export default AboutHero;
+export default ContactHero;

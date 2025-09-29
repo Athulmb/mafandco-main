@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 // 🔹 Data object
 const aboutLandingData = {
@@ -6,12 +7,12 @@ const aboutLandingData = {
   companyLabel: "About our company",
   title: "Explore Dubai's Finest Properties With MAF & Co Properties LLC",
   teamAvatars: [
-    "from-blue-400 to-blue-600",
-    "from-pink-400 to-pink-600",
-    "from-purple-400 to-purple-600",
-    "from-green-400 to-green-600",
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+    "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
+    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face",
+    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face",
   ],
-  userReviewCount: "1200+",
+  userReviewCount: 1200,
   reviewLabel: "users review",
   description: [
     "Discover Unmatched Excellence with MAF & Co Properties LLC. At MAF & Co Properties LLC, we are your trusted partner in navigating Dubai's dynamic real estate market. Established in 2024 and strategically located in Business Bay, one of Dubai's most prestigious and sought-after neighborhoods, we specialize in offering luxury real estate solutions tailored to discerning clients worldwide.",
@@ -24,66 +25,119 @@ const aboutLandingData = {
 const AboutLanding = () => {
   const data = aboutLandingData;
 
+  // Count-up animation state
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const end = data.userReviewCount;
+    const duration = 2000; // 2 seconds
+    const increment = Math.ceil(end / (duration / 30)); // update every 30ms
+    const counter = setInterval(() => {
+      start += increment;
+      if (start >= end) {
+        start = end;
+        clearInterval(counter);
+      }
+      setCount(start);
+    }, 30);
+
+    return () => clearInterval(counter);
+  }, [data.userReviewCount]);
+
   return (
-    <div className="min-h-screen bg-gray-100 p-4 md:p-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[600px]">
+    <motion.div
+      className="w-full min-h-screen bg-backgound p-4 sm:p-6 lg:p-12"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+    >
+      <div className="max-w-full mx-auto">
+        <div className="bg-transparent rounded-3xl overflow-hidden p-2 lg:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen items-start">
             {/* Image Section */}
-            <div className="relative overflow-hidden">
+            <motion.div
+              className="relative flex items-start justify-center w-full h-auto lg:h-screen p-6 lg:pt-16"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.3 }}
+            >
               <img
                 src={data.image}
                 alt={data.title}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                className="w-4/5 h-64 sm:h-80 md:w-4/5 md:h-3/4 lg:w-4/5 xl:w-3/5 lg:h-3/4 object-cover hover:scale-105 transition-transform duration-700 rounded-3xl"
               />
-            </div>
+            </motion.div>
 
             {/* Content Section */}
-            <div className="p-8 lg:p-12 flex flex-col justify-center">
+            <motion.div
+              className="p-6 sm:p-10 lg:p-16 flex flex-col justify-start h-full bg-transparent"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.6 }}
+            >
               {/* Company Label */}
-              <p className="text-gray-500 text-sm uppercase tracking-wide mb-4">
-                {data.companyLabel}
-              </p>
+              <div className="flex items-center mb-4 sm:mb-6">
+                <span className="text-primary text-xs sm:text-sm font-medium bg-transparent px-3 py-1 rounded-full">
+                  {data.companyLabel}
+                </span>
+                <div className="flex-1 h-px bg-gray-300 ml-3 sm:ml-4"></div>
+              </div>
 
               {/* Main Heading */}
-              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 leading-snug sm:leading-tight">
                 {data.title}
               </h1>
 
               {/* Team Avatars and Review */}
-              <div className="flex items-center mb-6">
-                <div className="flex -space-x-2 mr-4">
-                  {data.teamAvatars.map((gradient, index) => (
+              <div className="flex flex-col sm:flex-row items-start sm:items-center mb-6 sm:mb-8 shadow-sm p-4 sm:p-5 rounded-lg bg-transparent">
+                <div className="flex -space-x-3 mr-0 sm:mr-5 mb-3 sm:mb-0">
+                  {data.teamAvatars.map((avatar, index) => (
                     <div
                       key={index}
-                      className={`w-9 h-9 bg-gradient-to-br ${gradient} rounded-full border-2 border-white`}
-                    ></div>
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 sm:border-3 border-white shadow-lg overflow-hidden"
+                    >
+                      <img
+                        src={avatar}
+                        alt={`Team member ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   ))}
                 </div>
-                <div className="text-sm">
-                  <div className="font-semibold text-gray-900">
-                    {data.userReviewCount}
-                  </div>
-                  <div className="text-gray-500">{data.reviewLabel}</div>
+                <div className="text-base">
+                  <div className="font-bold text-gray-900 text-lg">{count}+</div>
+                  <div className="text-gray-600 text-sm">{data.reviewLabel}</div>
                 </div>
               </div>
 
               {/* Description Paragraphs */}
-              <div className="space-y-4 text-gray-600 text-sm leading-relaxed mb-8">
+              <div className="space-y-4 sm:space-y-5 text-gray-600 text-sm sm:text-base leading-relaxed mb-8 sm:mb-10">
                 {data.description.map((para, idx) => (
-                  <p key={idx}>{para}</p>
+                  <p key={idx} className="text-justify">
+                    {para}
+                  </p>
                 ))}
               </div>
 
               {/* Contact Button */}
-              <button className="bg-slate-700 hover:bg-slate-800 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200 self-start">
-                {data.buttonText}
+              <button
+                onClick={() => {}}
+                className="relative overflow-hidden px-8 sm:px-10 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg group bg-primary text-white shadow-lg transition-all duration-500 self-start hover:shadow-xl"
+              >
+                <span className="absolute bottom-0 left-1/2 w-0 h-0 bg-primary rounded-lg transform -translate-x-1/2 group-hover:w-full group-hover:h-full transition-all duration-500 ease-in-out"></span>
+                <span className="relative z-10 block transition-transform duration-500 group-hover:-translate-y-[180%]">
+                  {data.buttonText}
+                </span>
+                <span className="absolute inset-0 flex items-center justify-center text-white font-semibold transform translate-y-full transition-transform duration-500 group-hover:translate-y-0">
+                  {data.buttonText}
+                </span>
               </button>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
