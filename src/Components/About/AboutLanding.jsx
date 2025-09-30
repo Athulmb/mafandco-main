@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-// 🔹 Data object
 const aboutLandingData = {
-  image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2075&q=80",
+  image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2075&q=80",
   companyLabel: "About our company",
-  title: "Explore Dubai's Finest Properties With MAF & Co Properties LLC",
+  title: "Explore Dubai's Finest Properties <br/> With MAF & Co Properties LLC",
+
   teamAvatars: [
     "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
     "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
@@ -25,14 +25,14 @@ const aboutLandingData = {
 const AboutLanding = () => {
   const data = aboutLandingData;
 
-  // Count-up animation state
   const [count, setCount] = useState(0);
+  const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
     let start = 0;
     const end = data.userReviewCount;
-    const duration = 2000; // 2 seconds
-    const increment = Math.ceil(end / (duration / 30)); // update every 30ms
+    const duration = 2000;
+    const increment = Math.ceil(end / (duration / 30));
     const counter = setInterval(() => {
       start += increment;
       if (start >= end) {
@@ -54,10 +54,10 @@ const AboutLanding = () => {
     >
       <div className="max-w-full mx-auto">
         <div className="bg-transparent rounded-3xl overflow-hidden p-2 lg:py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-8 xl:gap-x-12 min-h-screen items-stretch">
             {/* Image Section */}
             <motion.div
-              className="relative flex items-start justify-center w-full h-auto lg:h-screen p-6 lg:pt-16"
+              className="relative flex items-center justify-center w-full h-full p-6 lg:pt-12"
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.3 }}
@@ -65,37 +65,39 @@ const AboutLanding = () => {
               <img
                 src={data.image}
                 alt={data.title}
-                className="w-4/5 h-64 sm:h-80 md:w-4/5 md:h-3/4 lg:w-4/5 xl:w-3/5 lg:h-3/4 object-cover hover:scale-105 transition-transform duration-700 rounded-3xl"
+                className="w-full h-full object-cover rounded-3xl"
               />
             </motion.div>
 
             {/* Content Section */}
             <motion.div
-              className="p-6 sm:p-10 lg:p-16 flex flex-col justify-start h-full bg-transparent"
+              className="p-6 sm:p-10 lg:p-12 flex flex-col justify-start h-full bg-transparent"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.6 }}
             >
               {/* Company Label */}
               <div className="flex items-center mb-4 sm:mb-6">
-                <span className="text-primary text-xs sm:text-sm font-medium bg-transparent px-3 py-1 rounded-full">
+                <span className="text-primary text-xs sm:text-sm font-medium px-3 py-1 rounded-full">
                   {data.companyLabel}
                 </span>
                 <div className="flex-1 h-px bg-gray-300 ml-3 sm:ml-4"></div>
               </div>
 
               {/* Main Heading */}
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 leading-snug sm:leading-tight">
-                {data.title}
-              </h1>
+              <h1
+  className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold text-gray-900 mb-6 sm:mb-8 leading-snug sm:leading-tight"
+  dangerouslySetInnerHTML={{ __html: data.title }}
+/>
+
 
               {/* Team Avatars and Review */}
-              <div className="flex flex-col sm:flex-row items-start sm:items-center mb-6 sm:mb-8 shadow-sm p-4 sm:p-5 rounded-lg bg-transparent">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center mb-6 sm:mb-8 shadow-sm p-4 sm:p-5 rounded-lg">
                 <div className="flex -space-x-3 mr-0 sm:mr-5 mb-3 sm:mb-0">
                   {data.teamAvatars.map((avatar, index) => (
                     <div
                       key={index}
-                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 sm:border-3 border-white shadow-lg overflow-hidden"
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white shadow-lg overflow-hidden"
                     >
                       <img
                         src={avatar}
@@ -111,20 +113,30 @@ const AboutLanding = () => {
                 </div>
               </div>
 
-              {/* Description Paragraphs */}
+              {/* Description */}
               <div className="space-y-4 sm:space-y-5 text-gray-600 text-sm sm:text-base leading-relaxed mb-8 sm:mb-10">
-                {data.description.map((para, idx) => (
-                  <p key={idx} className="text-justify">
-                    {para}
-                  </p>
-                ))}
+                {data.description.map((para, idx) => {
+                  if (!showMore && idx > 0) return null; // only first para visible on mobile
+                  return (
+                    <p key={idx} className="text-justify">
+                      {para}
+                    </p>
+                  );
+                })}
               </div>
 
+              {/* Read More Button (only on mobile) */}
+              {!showMore && (
+                <button
+                  className="block lg:hidden mb-6 text-primary font-medium underline"
+                  onClick={() => setShowMore(true)}
+                >
+                  Read More
+                </button>
+              )}
+
               {/* Contact Button */}
-              <button
-                onClick={() => {}}
-                className="relative overflow-hidden px-8 sm:px-10 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg group bg-primary text-white shadow-lg transition-all duration-500 self-start hover:shadow-xl"
-              >
+              <button className="relative overflow-hidden px-8 sm:px-10 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg group bg-primary text-white shadow-lg transition-all duration-500 self-start hover:shadow-xl">
                 <span className="absolute bottom-0 left-1/2 w-0 h-0 bg-primary rounded-lg transform -translate-x-1/2 group-hover:w-full group-hover:h-full transition-all duration-500 ease-in-out"></span>
                 <span className="relative z-10 block transition-transform duration-500 group-hover:-translate-y-[180%]">
                   {data.buttonText}
