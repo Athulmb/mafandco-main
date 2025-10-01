@@ -4,29 +4,29 @@ function ArchitecturalLayout() {
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
       {/* Left Panel - Dark Blue Navigation */}
-      <div className="w-full lg:w-1/2 bg-primary text-white px-6 lg:px-28 py-16 sm:py-20 lg:py-28 flex flex-col">
+      <div className="w-full lg:w-1/2 bg-primary text-white px-6 lg:pl-20 py-16 sm:py-20 lg:py-28 flex flex-col">
         <div className="space-y-10 lg:space-y-28">
           {/* Navigation Items */}
           <div>
-            <h2 className="text-2xl lg:text-3xl xl:text-5xl font-semibold">
+            <h2 className="text-2xl lg:text-3xl xl:text-5xl font-semibold tracking-tight">
               Lorem Ipsum Is Simply Dummy Text
             </h2>
             <div className="w-full lg:w-4/5 h-px bg-gray-400 mt-4"></div>
           </div>
           <div>
-            <h2 className="text-2xl lg:text-3xl xl:text-5xl font-semibold">
+            <h2 className="text-2xl lg:text-3xl xl:text-5xl font-semibold tracking-tight">
               Lorem Ipsum Is
             </h2>
             <div className="w-full lg:w-4/5 h-px bg-gray-400 mt-4"></div>
           </div>
           <div>
-            <h2 className="text-2xl lg:text-3xl xl:text-5xl font-semibold">
+            <h2 className="text-2xl lg:text-3xl xl:text-5xl font-semibold tracking-tight">
               Lorem Ipsum
             </h2>
             <div className="w-full lg:w-4/5 h-px bg-gray-400 mt-4"></div>
           </div>
           <div>
-            <h2 className="text-2xl lg:text-3xl xl:text-5xl font-semibold">
+            <h2 className="text-2xl lg:text-3xl xl:text-5xl font-semibold tracking-tight">
               Lorem Ipsum Is Simply Dummy Text
             </h2>
             <div className="w-full lg:w-4/5 h-px bg-gray-400 mt-4"></div>

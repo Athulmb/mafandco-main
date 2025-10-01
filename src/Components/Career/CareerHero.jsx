@@ -1,9 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const projectHeroData = {
+const careerHeroData = {
   backgroundImage: "AboutHero.png", // 🔹 Replace with your image path
-  title: "Our Projects",
+  title: "Join Our Team",
   underline: true,
 };
 
@@ -13,14 +13,14 @@ const letterAnimation = {
   visible: { opacity: 1, y: 0 },
 };
 
-const ProjectHero = () => {
+const CareerHero = () => {
   return (
     <section className="w-full flex">
       {/* Image */}
       <div className="w-full relative">
         <img
-          src={projectHeroData.backgroundImage}
-          alt={projectHeroData.title}
+          src={careerHeroData.backgroundImage}
+          alt={careerHeroData.title}
           className="w-full h-auto filter"
         />
 
@@ -28,11 +28,11 @@ const ProjectHero = () => {
         <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 max-w-6xl px-4 sm:px-6 md:px-10 lg:px-20">
           {/* Heading with smooth letter animation */}
           <motion.h1
-            className="text-white text-2xl pt-4 sm:text-4xl md:text-5xl lg:text-7xl font-lufga font-bold text-left flex flex-wrap"
+            className="text-white text-2xl pt-4 sm:text-4xl md:text-5xl lg:text-6xl font-lufga font-bold text-left flex flex-wrap"
             initial="hidden"
             animate="visible"
           >
-            {projectHeroData.title.split("").map((char, index) => (
+            {careerHeroData.title.split("").map((char, index) => (
               <motion.span
                 key={index}
                 variants={letterAnimation}
@@ -50,7 +50,7 @@ const ProjectHero = () => {
           </motion.h1>
 
           {/* Underline Animation */}
-          {projectHeroData.underline && (
+          {careerHeroData.underline && (
             <motion.div
               initial={{ width: 0, opacity: 0 }}
               animate={{ width: "50%", opacity: 1 }}
@@ -64,4 +64,4 @@ const ProjectHero = () => {
   );
 };
 
-export default ProjectHero;
+export default CareerHero;

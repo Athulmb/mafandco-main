@@ -1,0 +1,27 @@
+@media (min-width: 768px) { /* md breakpoint */
+    .hover-slide {
+      position: relative;
+      display: inline-block;
+      overflow: hidden;
+    }
+  
+    .hover-slide .top,
+    .hover-slide .bottom {
+      display: block;
+      transition: transform 0.7s ease;
+    }
+  
+    .hover-slide .bottom {
+      position: absolute;
+      left: 0;
+      top: 100%;
+    }
+  
+    .hover-slide:hover .top {
+      transform: translateY(-100%);
+    }
+  
+    .hover-slide:hover .bottom {
+      transform: translateY(-100%);
+    }
+  }

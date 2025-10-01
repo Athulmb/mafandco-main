@@ -4,8 +4,7 @@ import { motion } from "framer-motion";
 const aboutLandingData = {
   image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2075&q=80",
   companyLabel: "About our company",
-  title: "Explore Dubai's Finest Properties <br/> With MAF & Co Properties LLC",
-
+  title: "Explore Dubai's Finest Properties With MAF & Co Properties LLC",
   teamAvatars: [
     "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
     "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
@@ -24,10 +23,11 @@ const aboutLandingData = {
 
 const AboutLanding = () => {
   const data = aboutLandingData;
-
   const [count, setCount] = useState(0);
   const [showMore, setShowMore] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024); // lg breakpoint
 
+  // Animate review count
   useEffect(() => {
     let start = 0;
     const end = data.userReviewCount;
@@ -45,6 +45,13 @@ const AboutLanding = () => {
     return () => clearInterval(counter);
   }, [data.userReviewCount]);
 
+  // Detect mobile / desktop
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <motion.div
       className="w-full min-h-screen bg-backgound p-4 sm:p-6 lg:p-12"
@@ -55,6 +62,7 @@ const AboutLanding = () => {
       <div className="max-w-full mx-auto">
         <div className="bg-transparent rounded-3xl overflow-hidden p-2 lg:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-8 xl:gap-x-12 min-h-screen items-stretch">
+
             {/* Image Section */}
             <motion.div
               className="relative flex items-center justify-center w-full h-full p-6 lg:pt-12"
@@ -65,7 +73,7 @@ const AboutLanding = () => {
               <img
                 src={data.image}
                 alt={data.title}
-                className="w-full h-full object-cover rounded-3xl"
+                className="w-[85%] h-full object-cover rounded-3xl"
               />
             </motion.div>
 
@@ -86,10 +94,10 @@ const AboutLanding = () => {
 
               {/* Main Heading */}
               <h1
-  className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold text-gray-900 mb-6 sm:mb-8 leading-snug sm:leading-tight"
-  dangerouslySetInnerHTML={{ __html: data.title }}
-/>
-
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold text-gray-900 mb-6 sm:mb-8 leading-snug sm:leading-tight"
+              >
+                {data.title}
+              </h1>
 
               {/* Team Avatars and Review */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center mb-6 sm:mb-8 shadow-sm p-4 sm:p-5 rounded-lg">
@@ -115,25 +123,39 @@ const AboutLanding = () => {
 
               {/* Description */}
               <div className="space-y-4 sm:space-y-5 text-gray-600 text-sm sm:text-base leading-relaxed mb-8 sm:mb-10">
-                {data.description.map((para, idx) => {
-                  if (!showMore && idx > 0) return null; // only first para visible on mobile
-                  return (
+                {/* First paragraph with inline Read More */}
+                <p className="text-justify">
+                  {data.description[0]}{" "}
+                  {isMobile && !showMore && (
+                    <span
+                      className="text-primary font-medium underline cursor-pointer"
+                      onClick={() => setShowMore(true)}
+                    >
+                      Read More
+                    </span>
+                  )}
+                </p>
+
+                {/* Rest of the paragraphs */}
+                {(showMore || !isMobile) &&
+                  data.description.slice(1).map((para, idx) => (
                     <p key={idx} className="text-justify">
                       {para}
                     </p>
-                  );
-                })}
-              </div>
+                  ))}
 
-              {/* Read More Button (only on mobile) */}
-              {!showMore && (
-                <button
-                  className="block lg:hidden mb-6 text-primary font-medium underline"
-                  onClick={() => setShowMore(true)}
-                >
-                  Read More
-                </button>
-              )}
+                {/* Show Less link after last paragraph */}
+                {isMobile && showMore && (
+                  <p>
+                    <span
+                      className="text-primary font-medium underline cursor-pointer"
+                      onClick={() => setShowMore(false)}
+                    >
+                      Show Less
+                    </span>
+                  </p>
+                )}
+              </div>
 
               {/* Contact Button */}
               <button className="relative overflow-hidden px-8 sm:px-10 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg group bg-primary text-white shadow-lg transition-all duration-500 self-start hover:shadow-xl">

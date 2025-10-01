@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
+import "./Navbar.css"; // ✅ Import the CSS for hover-slide effect
 
 const navbarData = {
   logo: {
@@ -11,6 +13,7 @@ const navbarData = {
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
     { label: "Projects", href: "/projects" },
+    { label: "Career", href: "/career" },
     { label: "Events", href: "/events" },
     { label: "Contact Us", href: "/contact" },
   ],
@@ -44,16 +47,25 @@ const Navbar = () => {
 
   const handleLinkClick = () => setIsOpen(false);
 
+  // Framer Motion variants
+  const navbarVariants = {
+    hidden: { opacity: 0, y: -30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  };
+
   return (
     <>
       {/* Navbar */}
-      <nav
+      <motion.nav
+        initial="hidden"
+        animate="visible"
+        variants={navbarVariants}
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 font-lufga font-medium
         ${showNavbar ? "translate-y-0" : "-translate-y-full"} 
         ${scrolled ? "bg-[#215270] py-4 md:py-6 shadow-md text-black" : "bg-transparent py-3 md:py-6 text-white"}
         `}
       >
-        <div className="flex items-center justify-between px-3 sm:px-6 md:px-10 lg:px-20">
+        <div className="flex items-center justify-between px-3 sm:px-6 md:px-1 lg:px-20">
           {/* Logo */}
           <div className="flex items-center">
             <img
@@ -64,44 +76,59 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex flex-1 justify-center items-center space-x-4 lg:space-x-14 text-sm lg:text-md xl:text-lg">
+          <div className="hidden md:flex flex-1 justify-center items-center space-x-4 lg:space-x-9 xl:space-x-12 text-sm md:text-xs lg:text-md xl:text-lg">
             {navbarData.links.map((link, index) => (
               <a
                 key={index}
                 href={link.href}
-                className={`relative transition duration-300 font-semibold
-                  ${scrolled ? "text-black hover:text-gray-700" : "text-white hover:text-gray-200"}
-                  ${
-                    location.pathname === link.href
-                      ? "after:content-[''] after:absolute after:w-full after:h-[2px] after:bg-current after:bottom-[-8px] after:left-0"
-                      : ""
-                  }
-                `}
+                onClick={handleLinkClick}
+                className={`relative ${scrolled ? "text-black" : "text-white"} hover-slide`}
               >
-                {link.label}
+                <span className="top">{link.label}</span>
+                <span className="bottom">{link.label}</span>
               </a>
             ))}
           </div>
 
-          {/* Desktop CTA Buttons */}
-          <div className="hidden md:flex items-center space-x-4 lg:space-x-6 text-sm lg:text-md xl:text-lg">
-            <button
-              onClick={() => navigate("/login")}
-              className={`px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 border font-semibold rounded-md transition duration-300
-                ${scrolled
-                  ? "border-hidden text-black hover:bg-black hover:text-white"
-                  : "border-hidden text-white hover:bg-white hover:text-black"
-                }`}
-            >
-              Join / Log In
-            </button>
-            <button
-              onClick={() => navigate("/sell")}
-              className="px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 bg-[#215270] text-white font-semibold rounded-md hover:bg-gray-800 transition duration-300"
-            >
-              Sell With Us
-            </button>
-          </div>
+         {/* Desktop CTA Buttons */}
+<div className="hidden md:flex items-center space-x-4 lg:space-x-6 text-sm lg:text-md xl:text-lg">
+  {/* Join / Log In */}
+  <button
+    onClick={() => navigate("/login")}
+    className="relative overflow-hidden px-5 py-2 font-semibold rounded-md bg-transparent text-white group 
+    "
+  >
+    {/* Current text */}
+    <span className="relative z-10 block transition-transform duration-500 group-hover:-translate-y-[180%]">
+      Join / Log In
+    </span>
+    {/* Slide-in text */}
+    <span className="absolute inset-0 flex items-center justify-center text-white font-semibold transform translate-y-full transition-transform duration-500 group-hover:translate-y-0">
+      Join / Log In
+    </span>
+  </button>
+
+  {/* Sell With Us */}
+  <button
+    onClick={() => navigate("/sell")}
+   
+    className={`relative overflow-hidden px-5 py-2 font-semibold rounded-md border group
+      ${scrolled
+        ? "border-black text-white hover:bg-black bg-black hover:text-white"
+        : "border-primary text-white hover:bg-primary bg-primary hover:text-white"
+      }`}
+  >
+    {/* Current text */}
+    <span className="relative z-10 block transition-transform duration-500 group-hover:-translate-y-[180%]">
+      Sell With Us
+    </span>
+    {/* Slide-in text */}
+    <span className="absolute inset-0 flex items-center justify-center text-white font-semibold transform translate-y-full transition-transform duration-500 group-hover:translate-y-0">
+      Sell With Us
+    </span>
+  </button>
+</div>
+
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
@@ -114,7 +141,7 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Mobile Overlay */}
       <div

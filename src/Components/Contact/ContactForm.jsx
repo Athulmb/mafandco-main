@@ -155,12 +155,7 @@ export default function RealEstateContact() {
                 </div>
             </div>
 
-            {/* Map Section */}
-            <div className="w-full flex justify-center mt-8 sm:mt-10 p-4 sm:p-6">
-                <div className="w-[90%] sm:w-[80%] md:w-[75%] lg:w-[70%] h-64 sm:h-80 md:h-96 lg:h-[500px] xl:h-[600px] rounded-3xl overflow-hidden shadow-lg">
-                    <FreeMap />
-                </div>
-            </div>
+           
         </div>
     );
 }
