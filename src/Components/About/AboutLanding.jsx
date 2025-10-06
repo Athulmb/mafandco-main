@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const aboutLandingData = {
-  image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2075&q=80",
-  companyLabel: "About our company",
+ image: "/AboutLanding.png",
+    companyLabel: "About our company",
   title: "Explore Dubai's Finest Properties With MAF & Co Properties LLC",
   teamAvatars: [
     "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
