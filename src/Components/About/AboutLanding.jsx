@@ -60,12 +60,12 @@ const AboutLanding = () => {
       transition={{ duration: 1 }}
     >
       <div className="max-w-full mx-auto">
-        <div className="bg-transparent rounded-3xl overflow-hidden p-2 lg:py-20">
+        <div className="bg-transparent rounded-3xl overflow-hidden  lg:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-8 xl:gap-x-12 min-h-screen items-stretch">
 
             {/* Image Section */}
             <motion.div
-              className="relative flex items-center justify-center w-full h-full p-6 lg:pt-12"
+              className="relative flex items-center justify-start w-full xl:h-[80%] lg:h-full  lg:pt-12 pl-8"
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.3 }}
@@ -79,7 +79,7 @@ const AboutLanding = () => {
 
             {/* Content Section */}
             <motion.div
-              className="p-6 sm:p-10 lg:p-12 flex flex-col justify-start h-full bg-transparent"
+              className="p-6 sm:p-10 lg:p-8 flex flex-col justify-start h-full bg-transparent"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.6 }}

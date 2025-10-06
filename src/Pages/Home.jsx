@@ -1,10 +1,14 @@
 import React from 'react'
+import HomeHero from '../Components/Home/HomeHero'
+import DubaiPropertiesPage from '../Components/Home/DubaiPropertiesPage'
+import AboutLanding from '../Components/About/AboutLanding'
 
 const Home = () => {
   return (
-    <div className='min-h-screen flex items-center justify-center bg-black/40'>
-      hi
-    </div>
+   <>
+   <HomeHero/>
+   <AboutLanding/>
+   </>
   )
 }
 

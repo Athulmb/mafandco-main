@@ -47,7 +47,6 @@ const Navbar = () => {
 
   const handleLinkClick = () => setIsOpen(false);
 
-  // Framer Motion variants
   const navbarVariants = {
     hidden: { opacity: 0, y: -30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
@@ -60,7 +59,7 @@ const Navbar = () => {
         initial="hidden"
         animate="visible"
         variants={navbarVariants}
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 font-lufga font-medium
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 font-lufga-medium
         ${showNavbar ? "translate-y-0" : "-translate-y-full"} 
         ${scrolled ? "bg-[#215270] py-4 md:py-6 shadow-md text-black" : "bg-transparent py-3 md:py-6 text-white"}
         `}
@@ -82,7 +81,7 @@ const Navbar = () => {
                 key={index}
                 href={link.href}
                 onClick={handleLinkClick}
-                className={`relative ${scrolled ? "text-black" : "text-white"} hover-slide`}
+                className={`relative font-lufga-medium ${scrolled ? "text-black" : "text-white"} hover-slide`}
               >
                 <span className="top">{link.label}</span>
                 <span className="bottom">{link.label}</span>
@@ -90,45 +89,38 @@ const Navbar = () => {
             ))}
           </div>
 
-         {/* Desktop CTA Buttons */}
-<div className="hidden md:flex items-center space-x-4 lg:space-x-6 text-sm lg:text-md xl:text-lg">
-  {/* Join / Log In */}
-  <button
-    onClick={() => navigate("/login")}
-    className="relative overflow-hidden px-5 py-2 font-semibold rounded-md bg-transparent text-white group 
-    "
-  >
-    {/* Current text */}
-    <span className="relative z-10 block transition-transform duration-500 group-hover:-translate-y-[180%]">
-      Join / Log In
-    </span>
-    {/* Slide-in text */}
-    <span className="absolute inset-0 flex items-center justify-center text-white font-semibold transform translate-y-full transition-transform duration-500 group-hover:translate-y-0">
-      Join / Log In
-    </span>
-  </button>
+          {/* Desktop CTA Buttons */}
+          <div className="hidden md:flex items-center space-x-4 lg:space-x-6 text-sm lg:text-md xl:text-lg">
+            {/* Join / Log In */}
+            <button
+              onClick={() => navigate("/login")}
+              className="relative overflow-hidden px-5 py-2 rounded-md bg-transparent text-white font-lufga-medium group"
+            >
+              <span className="relative z-10 block transition-transform duration-500 group-hover:-translate-y-[180%]">
+                Join / Log In
+              </span>
+              <span className="absolute inset-0 flex items-center justify-center text-white font-lufga-medium transform translate-y-full transition-transform duration-500 group-hover:translate-y-0">
+                Join / Log In
+              </span>
+            </button>
 
-  {/* Sell With Us */}
-  <button
-    onClick={() => navigate("/sell")}
-   
-    className={`relative overflow-hidden px-5 py-2 font-semibold rounded-md border group
-      ${scrolled
-        ? "border-black text-white hover:bg-black bg-black hover:text-white"
-        : "border-primary text-white hover:bg-primary bg-primary hover:text-white"
-      }`}
-  >
-    {/* Current text */}
-    <span className="relative z-10 block transition-transform duration-500 group-hover:-translate-y-[180%]">
-      Sell With Us
-    </span>
-    {/* Slide-in text */}
-    <span className="absolute inset-0 flex items-center justify-center text-white font-semibold transform translate-y-full transition-transform duration-500 group-hover:translate-y-0">
-      Sell With Us
-    </span>
-  </button>
-</div>
-
+            {/* Sell With Us */}
+            <button
+              onClick={() => navigate("/sell")}
+              className={`relative overflow-hidden px-5 py-2 rounded-md border group font-lufga-medium
+                ${scrolled
+                  ? "border-black text-white hover:bg-black bg-black hover:text-white"
+                  : "border-primary text-white hover:bg-primary bg-primary hover:text-white"
+                }`}
+            >
+              <span className="relative z-10 block transition-transform duration-500 group-hover:-translate-y-[180%]">
+                Sell With Us
+              </span>
+              <span className="absolute inset-0 flex items-center justify-center text-white font-lufga-medium transform translate-y-full transition-transform duration-500 group-hover:translate-y-0">
+                Sell With Us
+              </span>
+            </button>
+          </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
@@ -153,9 +145,9 @@ const Navbar = () => {
 
       {/* Mobile Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-[85%] bg-white rounded-l-lg shadow-2xl z-50 transform transition-all duration-500 ease-out md:hidden font-lufga font-medium ${
-          isOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
-        }`}
+        className={`fixed top-0 right-0 h-full w-[85%] bg-white rounded-l-lg shadow-2xl z-50 transform transition-all duration-500 ease-out md:hidden font-lufga-medium
+        ${isOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"}
+        `}
       >
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <img
@@ -175,7 +167,7 @@ const Navbar = () => {
                 key={index}
                 href={link.href}
                 onClick={handleLinkClick}
-                className="block px-3 py-2 text-gray-800 hover:bg-gray-100 rounded-lg transition duration-200 text-sm"
+                className="block px-3 py-2 text-gray-800 hover:bg-gray-100 rounded-lg transition duration-200 text-sm font-lufga-medium"
               >
                 {link.label}
               </a>
@@ -188,7 +180,7 @@ const Navbar = () => {
                 navigate("/login");
                 handleLinkClick();
               }}
-              className="w-full border border-black text-black px-3 py-2 rounded-lg hover:bg-black hover:text-white transition-all duration-200 text-sm"
+              className="w-full border border-black text-black px-3 py-2 rounded-lg hover:bg-black hover:text-white transition-all duration-200 text-sm font-lufga-medium"
             >
               Join / Log In
             </button>
@@ -197,7 +189,7 @@ const Navbar = () => {
                 navigate("/sell");
                 handleLinkClick();
               }}
-              className="w-full bg-black text-white px-3 py-2 rounded-lg hover:bg-gray-800 transition-all duration-200 text-sm"
+              className="w-full bg-black text-white px-3 py-2 rounded-lg hover:bg-gray-800 transition-all duration-200 text-sm font-lufga-medium"
             >
               Sell With Us
             </button>
