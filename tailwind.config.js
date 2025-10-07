@@ -9,7 +9,7 @@ module.exports = {
       colors: {
         primary: "#215270",        // 👈 Primary color
         primaryLight: "#DDE6EB", 
-        backgound: "#F3F3F3"       // 👈 Optional lighter shade for backgrounds
+        backgound: "#F5F5F5"       // 👈 Optional lighter shade for backgrounds
       },
       keyframes: {
         fadeUp: {
