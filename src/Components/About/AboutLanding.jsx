@@ -60,7 +60,7 @@ const AboutLanding = () => {
       transition={{ duration: 1 }}
     >
       <div className="max-w-full mx-auto">
-        <div className="bg-transparent rounded-3xl overflow-hidden  lg:py-20">
+        <div className="bg-transparent rounded-3xl overflow-hidden  ">
           <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-8 xl:gap-x-12 min-h-screen items-stretch">
 
             {/* Image Section */}

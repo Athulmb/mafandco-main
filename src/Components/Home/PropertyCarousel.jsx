@@ -59,7 +59,7 @@ export default function PropertyCarousel() {
       />
 
       {/* Moving Header Section */}
-      <div className="w-full overflow-hidden py-6 mb-12">
+      <div className="w-full overflow-hidden  mb-12">
         <div className="bg-transparent mx-auto px-10 py-4 overflow-hidden w-full">
           <div className="flex animate-scroll whitespace-nowrap w-full items-center">
             {[...Array(6)].map((_, i) => (
