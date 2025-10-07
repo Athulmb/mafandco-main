@@ -5,6 +5,7 @@ import PropertyCarousel from '../Components/Home/PropertyCarousel'
 import CompanyOverview from '../Components/Home/CompanyOverview'
 import ContactForm from '../Components/Contact/ContactForm'
 import RealEstateNews from '../Components/Home/RealEstateNews'
+import CompanyFacts from '../Components/Home/CompanyFacts'
 
 
 const Home = () => {
@@ -15,6 +16,7 @@ const Home = () => {
    <PropertyCarousel/>
    <CompanyOverview/>
    <ContactForm/>
+   <CompanyFacts/>
    <RealEstateNews/>
    </>
   )
