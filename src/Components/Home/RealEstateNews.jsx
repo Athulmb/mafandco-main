@@ -55,7 +55,7 @@ export default function RealEstateNewsSlider() {
   };
 
   return (
-    <section className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-20">
+    <section className="min-h-screen bg-backgound py-12 px-4 sm:px-6 lg:px-20">
       <div className="max-w-full mx-auto">
         {/* Top Section */}
         <div className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12">
@@ -66,11 +66,11 @@ export default function RealEstateNewsSlider() {
         {/* Header & Button */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12 gap-4">
           <div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
               Lorem Ipsum Is Simply<br />Dummy Text Of The Printing
             </h1>
           </div>
-          <button className="bg-teal-700 hover:bg-black text-white px-6 py-3 rounded font-semibold transition-colors whitespace-nowrap">
+          <button className="bg-primary hover:bg-black text-white px-7 py-4 text-xl rounded-lg font-semibold transition-colors whitespace-nowrap">
             More News
           </button>
         </div>
@@ -103,38 +103,40 @@ export default function RealEstateNewsSlider() {
             {articles.map((article) => (
               <motion.div
                 key={article.id}
-                className="flex-shrink-0 w-full  md:w-1/2 lg:w-1/3  bg-white rounded-3xl shadow-lg relative transition-shadow"
+                className="flex-shrink-0 w-full  md:w-1/2 lg:w-1/3  bg-white rounded-3xl shadow-lg relative transition-shadow flex flex-col"
                 style={{ aspectRatio: 437.66 / 504.41 }}
+                whileHover="hover"
+                initial="initial"
               >
                 {/* Image */}
                 <div className="w-full h-3/5 overflow-hidden rounded-2xl relative">
                   <motion.img
                     src={article.image}
                     alt={article.title}
-                    initial={{ width: "30%", height: "40%", top: "2%", left: "2%", position: "absolute" }}
-                    whileHover={{ width: "96%", height: "96%", top: "2%", left: "2%" }}
+                    variants={{
+                      initial: { width: "30%", height: "40%", top: "2%", left: "2%", position: "absolute" },
+                      hover: { width: "96%", height: "96%", top: "2%", left: "2%" },
+                    }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
                     className="object-cover rounded-2xl"
                   />
                 </div>
 
                 {/* Content */}
-                <div className="px-6  sm:px-8 h-auto  flex flex-col w-4/5">
-                  <div>
-                    <div className="flex items-center gap-8 mb-2 ">
-                      <span className="text-xs font-lufga text-gray-900 uppercase tracking-wider px-2 py-1 border border-gray-300 rounded-full ">
+                <div className="px-6  sm:px-8 h-auto flex-1 flex flex-col w-full justify-center">
+                  <div className="flex flex-col gap-6">
+                    <div className="flex items-center gap-8">
+                      <span className="text-md font-lufga text-gray-900 uppercase tracking-wider px-2 py-1 border border-gray-300 rounded-full ">
                         {article.category}
                       </span>
 
-                      <span className="text-xs text-gray-500">{article.date}</span>
+                      <span className="text-md text-gray-500">{article.date}</span>
                     </div>
                     <div>
-                      <h3 className="text-lg  font-bold text-gray-900 mb-2 sm:mb-4">{article.title}</h3>
+                      <h3 className="text-3xl  font-bold text-gray-900">{article.title}</h3>
                     </div>
                   </div>
-                  {/* <button className="items-start text-teal-700 hover:text-teal-800 text-sm font-semibold transition-colors">
-                    Read More
-                  </button> */}
+                 
                 </div>
               </motion.div>
             ))}

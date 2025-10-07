@@ -23,10 +23,10 @@ export default function CompanyOverview() {
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
 
   return (
-    <div className="min-h-screen bg-backgound py-12 sm:py-16 lg:py-20 px-3 sm:px-6 md:px-8 lg:px-20">
+    <div className="min-h-screen bg-backgound py-12 sm:py-16 lg:py-16 px-3 sm:px-6 md:px-8 lg:px-20">
       {/* <div className="w-full mx-auto"> */}
       {/* Top Header */}
-      <div className="mb-12 lg:mb-16">
+      <div className="mb-12 lg:mb-8">
         <div className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12">
           <p className="text-sm sm:text-base text-gray-600 whitespace-nowrap">
             Company Overview
@@ -43,20 +43,17 @@ export default function CompanyOverview() {
       <div className="w-full flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-12 lg:pt-20">
 
         {/* Column 1: Logo */}
-        <div className="flex-shrink-0 w-full lg:w-[8%] flex justify-center lg:justify-start">
-          <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28">
-            <div className="w-full h-full rounded-full border-2 border-yellow-700 flex items-center justify-center p-3 sm:p-4">
-              <div className="text-center">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-1 border border-yellow-700 rounded-full flex items-center justify-center">
-                  <div className="text-yellow-700 text-xs font-serif">E</div>
-                </div>
-                <div className="text-[5px] sm:text-[6px] text-yellow-700 uppercase tracking-wider leading-tight">
-                  Exceptional<br />Solutions<br />Since 1990
-                </div>
-              </div>
-            </div>
+        {/* Column 1: Logo */}
+        <div className="flex-shrink-0 w-full lg:w-[10%] flex justify-center lg:justify-start">
+          <div className="w-full">
+            <img
+              src="/awardslogo.png"
+              alt="Company Logo"
+              className="w-full h-full object-contain rounded-full  p-1 sm:p-2"
+            />
           </div>
         </div>
+
 
         <div className="w-full lg:w-[34%]">
           <div className="bg-white rounded-3xl shadow-xl p-4 sm:p-5 md:p-3 relative">
@@ -70,7 +67,7 @@ export default function CompanyOverview() {
             </div>
 
             {/* Caption */}
-            <p className="text-base w-[70%] sm:text-lg font-medium text-gray-900 mb-2 sm:mb-3 px-1 -mt-1 py-12">
+            <p className="text-base w-[70%] sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 px-1 -mt-1 py-12">
               {slides[currentSlide].caption}
             </p>
 
@@ -78,17 +75,17 @@ export default function CompanyOverview() {
             <div className="flex items-center gap-3 px-1">
               <button
                 onClick={prevSlide}
-                className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors bg-white shadow-sm"
+                className="w-11 h-11 sm:w-16 sm:h-16 rounded-xl border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors bg-white shadow-sm"
                 aria-label="Previous slide"
               >
-                <ArrowLeft className="w-5 h-5 text-gray-700" />
+                <ArrowLeft className="w-8 h-8 text-gray-700" />
               </button>
               <button
                 onClick={nextSlide}
-                className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors bg-white shadow-sm"
+                className="w-11 h-11 sm:w-16 sm:h-16 rounded-xl border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors bg-white shadow-sm"
                 aria-label="Next slide"
               >
-                <ArrowRight className="w-5 h-5 text-gray-700" />
+                <ArrowRight className="w-8 h-8 text-gray-700" />
               </button>
             </div>
 

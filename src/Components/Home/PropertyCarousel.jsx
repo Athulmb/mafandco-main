@@ -140,10 +140,10 @@ export default function PropertyCarousel() {
                 </div>
               ) : (
                 <iframe
-                  className="w-full h-full rounded-xl"
+                  className="w-full h-full rounded-xl  "
                   src={`${slides[currentSlide].video}?autoplay=1`}
                   title="Video Player"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture object-cover"
                   allowFullScreen
                 ></iframe>
               )}
