@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ArrowRight, ArrowLeft, Play } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function PropertyCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -12,7 +13,7 @@ export default function PropertyCarousel() {
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy",
       image:
         "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&h=900&fit=crop",
-      video: "/Introducing Grand Polo Club & Resort by Emaar.mp4", // replace with your video URL
+      video: "/Introducing Grand Polo Club & Resort by Emaar.mp4",
     },
     {
       title: "Innovative Urban Development",
@@ -34,11 +35,24 @@ export default function PropertyCarousel() {
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
-    setIsPlaying(false); // reset video when changing slide
+    setIsPlaying(false);
   };
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
     setIsPlaying(false);
+  };
+
+  // Framer Motion variants for animations
+  const leftContentVariants = {
+    initial: { opacity: 0, x: -50 },
+    animate: { opacity: 1, x: 0, transition: { duration: 0.6 } },
+    exit: { opacity: 0, x: 50, transition: { duration: 0.6 } },
+  };
+
+  const rightMediaVariants = {
+    initial: { opacity: 0, x: 50 },
+    animate: { opacity: 1, x: 0, transition: { duration: 0.6 } },
+    exit: { opacity: 0, x: -50, transition: { duration: 0.6 } },
   };
 
   return (
@@ -86,22 +100,29 @@ export default function PropertyCarousel() {
       {/* Responsive Carousel Section */}
       <div className="w-full px-3 sm:px-6 md:px-8 lg:px-20">
         <div className="bg-white p-5 rounded-2xl shadow-lg overflow-hidden w-full mx-auto relative xl:aspect-[1300/600]">
-          {/* Grid: two columns on lg, stacked on smaller screens */}
           <div className="grid grid-cols-1 lg:grid-cols-[37.7%_62.3%] gap-6 lg:gap-0 h-full bg-backgound rounded-xl">
             {/* Left Content */}
-            <div className="flex flex-col justify-around p-4 sm:p-6 order-2 lg:order-1 w-5/6 ">
-              <div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
-                  {slides[currentSlide].title}
-                </h2>
-                <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
-                  {slides[currentSlide].description}
-                </p>
-                <button className="inline-flex items-center gap-2 bg-primary hover:bg-black text-white px-10 py-4 rounded-md font-semibold text-lg transition-colors">
-                  Learn More
-                  <ArrowRight size={20} />
-                </button>
-              </div>
+            <div className="flex flex-col justify-around p-4 sm:p-6 order-2 lg:order-1 w-5/6">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentSlide}
+                  variants={leftContentVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                >
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+                    {slides[currentSlide].title}
+                  </h2>
+                  <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
+                    {slides[currentSlide].description}
+                  </p>
+                  <button className="inline-flex items-center gap-2 bg-primary hover:bg-black text-white px-10 py-4 rounded-md font-semibold text-lg transition-colors">
+                    Learn More
+                    <ArrowRight size={20} />
+                  </button>
+                </motion.div>
+              </AnimatePresence>
 
               {/* Navigation Buttons */}
               <div className="flex gap-4 mt-8 justify-center lg:justify-start">
@@ -124,29 +145,40 @@ export default function PropertyCarousel() {
 
             {/* Right Video/Image */}
             <div className="relative w-full h-64 sm:h-80 md:h-96 lg:h-full order-1 lg:order-2 flex items-center justify-center">
-              {!isPlaying ? (
-                <div className="relative w-full h-full">
-                  <img
-                    src={slides[currentSlide].image}
-                    alt={slides[currentSlide].title}
-                    className="w-full h-full object-cover rounded-xl transition-transform duration-500"
-                  />
-                  <button
-                    onClick={() => setIsPlaying(true)}
-                    className="absolute inset-0 m-auto w-20 h-20 flex items-center justify-center bg-white/30 bg-opacity-50 text-white rounded-full hover:bg-opacity-70 transition-colors"
-                  >
-                    <Play size={40} />
-                  </button>
-                </div>
-              ) : (
-                <iframe
-                  className="w-full h-full rounded-xl  "
-                  src={`${slides[currentSlide].video}?autoplay=1`}
-                  title="Video Player"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture object-cover"
-                  allowFullScreen
-                ></iframe>
-              )}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentSlide + "-media"}
+                  variants={rightMediaVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  className="relative w-full h-full"
+                >
+                  {!isPlaying ? (
+                    <>
+                      <img
+                        src={slides[currentSlide].image}
+                        alt={slides[currentSlide].title}
+                        className="w-full h-full object-cover rounded-xl transition-transform duration-500"
+                      />
+                      <button
+                        onClick={() => setIsPlaying(true)}
+                        className="absolute inset-0 m-auto w-20 h-20 flex items-center justify-center bg-white/30 bg-opacity-50 text-white rounded-full hover:bg-opacity-70 transition-colors"
+                      >
+                        <Play size={40} />
+                      </button>
+                    </>
+                  ) : (
+                    <iframe
+                      className="w-full h-full rounded-xl"
+                      src={`${slides[currentSlide].video}?autoplay=1`}
+                      title="Video Player"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture object-cover"
+                      allowFullScreen
+                    ></iframe>
+                  )}
+                </motion.div>
+              </AnimatePresence>
             </div>
           </div>
         </div>

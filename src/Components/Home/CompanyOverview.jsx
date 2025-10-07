@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { ArrowLeft, arrowleft, ArrowRight, arrowright } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import './CompanyOverview.css'; // blinking CSS
 
 export default function CompanyOverview() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -22,11 +24,34 @@ export default function CompanyOverview() {
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
 
+  // Variants
+  const fadeUpVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+    exit: { opacity: 0, y: -20, transition: { duration: 0.5 } }
+  };
+
+  const slideVariants = {
+    initial: { opacity: 0, scale: 0.95, y: 20 },
+    animate: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.6 } },
+    exit: { opacity: 0, scale: 0.95, y: -20, transition: { duration: 0.5 } }
+  };
+
+  const logoVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 0.8, y: 0, transition: { duration: 1, ease: "easeOut" } }
+  };
+
   return (
     <div className="min-h-screen bg-backgound py-12 sm:py-16 lg:py-16 px-3 sm:px-6 md:px-8 lg:px-20">
-      {/* <div className="w-full mx-auto"> */}
-      {/* Top Header */}
-      <div className="mb-12 lg:mb-8">
+
+      {/* Top Header with Animation */}
+      <motion.div
+        variants={fadeUpVariants}
+        initial="initial"
+        animate="animate"
+        className="mb-12 lg:mb-8"
+      >
         <div className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12">
           <p className="text-sm sm:text-base text-gray-600 whitespace-nowrap">
             Company Overview
@@ -37,39 +62,53 @@ export default function CompanyOverview() {
           Exceptional Locations, Unrivaled
           <span className="block mt-1 sm:mt-2">Lifestyles. Exceptional Locations, Unrivaled Lifestyles.</span>
         </h1>
-      </div>
+      </motion.div>
 
-      {/* === Full-width 3-column row === */}
+      {/* Carousel and Content */}
       <div className="w-full flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-12 lg:pt-20">
 
         {/* Column 1: Logo */}
-        {/* Column 1: Logo */}
         <div className="flex-shrink-0 w-full lg:w-[10%] flex justify-center lg:justify-start">
           <div className="w-full">
-            <img
+            <motion.img
               src="/awardslogo.png"
               alt="Company Logo"
-              className="w-full h-full object-contain rounded-full  p-1 sm:p-2"
+              className="w-full h-full object-contain rounded-full p-1 sm:p-2"
+              variants={fadeUpVariants}
+              initial="initial"
+              animate="animate"
             />
           </div>
         </div>
 
-
+        {/* Column 2: Carousel */}
         <div className="w-full lg:w-[34%]">
           <div className="bg-white rounded-3xl shadow-xl p-4 sm:p-5 md:p-3 relative">
-            {/* Reduced height image */}
-            <div className="relative overflow-hidden rounded-lg h-[220px] sm:h-[260px] md:h-[280px] lg:h-[300px]">
-              <img
-                src={slides[currentSlide].image}
-                alt="Property showcase"
-                className="w-full h-full object-cover"
-              />
-            </div>
 
-            {/* Caption */}
-            <p className="text-base w-[70%] sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 px-1 -mt-1 py-12">
-              {slides[currentSlide].caption}
-            </p>
+            {/* AnimatePresence for carousel */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide}
+                variants={slideVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+              >
+                {/* Image */}
+                <div className="relative overflow-hidden rounded-lg h-[220px] sm:h-[260px] md:h-[280px] lg:h-[300px]">
+                  <img
+                    src={slides[currentSlide].image}
+                    alt="Property showcase"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Caption */}
+                <p className="text-base w-[70%] sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 px-1 -mt-1 py-12">
+                  {slides[currentSlide].caption}
+                </p>
+              </motion.div>
+            </AnimatePresence>
 
             {/* Navigation Arrows */}
             <div className="flex items-center gap-3 px-1">
@@ -89,19 +128,25 @@ export default function CompanyOverview() {
               </button>
             </div>
 
-            {/* Logo at bottom right */}
-            <img
+            {/* Logo at bottom right with initial animation + blinking */}
+            <motion.img
               src="/logo2.png"
               alt="Company Logo"
-              className="absolute bottom-4 right-8 w-16 sm:w-20 opacity-80"
+              className="absolute bottom-4 right-8 w-16 sm:w-20 blinking-logo"
+              variants={logoVariants}
+              initial="initial"
+              animate="animate"
             />
           </div>
         </div>
 
-
-
         {/* Column 3: Text Content */}
-        <div className="relative w-full lg:w-[38%]">
+        <motion.div
+          variants={fadeUpVariants}
+          initial="initial"
+          animate="animate"
+          className="relative w-full lg:w-[38%]"
+        >
           {/* Watermark */}
           <div className="absolute right-0 top-0 opacity-[0.03] pointer-events-none hidden lg:block">
             <svg width="300" height="300" viewBox="0 0 200 200" className="text-gray-900">
@@ -114,7 +159,7 @@ export default function CompanyOverview() {
 
           {/* Text */}
           <div className="space-y-5 sm:space-y-6 relative z-10">
-            <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+          <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry.
               Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae risus eu leo volutpat volutpat. Vivamus egestas, ipsum nec ultrices accumsan, magna arcu blandit sapien, ac vulputate ipsum libero vitae mi. Duis vel sodales elit. Cras nec porttitor felis, vitae pretium magna. Suspendisse id justo non tortor imperdiet dictum in nec est.
             </p>
@@ -126,7 +171,7 @@ export default function CompanyOverview() {
               Lorem Ipsum is simply dummy text of the printing and typesetting industry.Vestibulum consequat est eget nibh pulvinar, in iaculis orci varius. Nunc sit amet dolor metus. Cras malesuada, lacus non ultricies faucibus, turpis erat tincidunt nulla, ut tempus libero elit vel velit. Sed pharetra, mauris in rhoncus sagittis, magna justo viverra ligula, vel lacinia urna leo ac ligula.
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

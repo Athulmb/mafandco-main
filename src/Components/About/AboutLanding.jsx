@@ -54,7 +54,7 @@ const AboutLanding = () => {
 
   return (
     <motion.div
-      className="w-full min-h-screen bg-backgound p-4 sm:p-6 lg:p-12"
+      className="w-full h-auto bg-backgound p-4 sm:p-6 lg:px- lg:pt-12"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
@@ -65,7 +65,7 @@ const AboutLanding = () => {
 
             {/* Image Section */}
             <motion.div
-              className="relative flex items-center justify-start w-full xl:h-[80%] lg:h-full  lg:pt-12 pl-8"
+              className="relative flex items-center justify-start w-full xl:h-[90%] lg:h-full  lg:pt-12 pl-8"
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.3 }}
