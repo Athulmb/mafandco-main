@@ -6,6 +6,7 @@ import TeamMembers from '../Components/About/TeamMembers'
 import PropertiesBrochure from '../Components/About/PropertiesBrochure'
 import CoreValuesSection from '../Components/About/CoreValuesSection'
 import MissionVision from '../Components/About/MissionVision'
+import RealEstateNewsSlider from '../Components/Home/RealEstateNews'
 
 const About = () => {
   return (
@@ -17,6 +18,7 @@ const About = () => {
     <MissionVision/>
     <PropertiesBrochure/>
     <CoreValuesSection/>
+    <RealEstateNewsSlider/>
     </>
   )
 }

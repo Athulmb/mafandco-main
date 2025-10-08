@@ -13,20 +13,65 @@ const letterAnimation = {
   visible: { opacity: 1, y: 0 },
 };
 
+// 🔹 Vertical line animation
+const lineAnimation = {
+  hidden: { scaleY: 0, opacity: 0, originY: 0 },
+  visible: { scaleY: 1, opacity: 1, originY: 0, transition: { duration: 1, ease: "easeOut" } },
+};
+
 const AboutHero = () => {
   return (
-    <section className="w-full flex">
-      {/* Image */}
+    <section className="w-full flex relative overflow-hidden">
+      {/* Background Image */}
       <div className="w-full relative">
         <img
           src={aboutHeroData.backgroundImage}
           alt={aboutHeroData.title}
-          className="w-full h-auto filter"
+          className="w-full h-auto object-cover"
         />
+
+        {/* 🔹 Vertical Lines with animation */}
+        <div className="absolute inset-0 flex justify-between pointer-events-none px-4 sm:px-6 md:px-10 lg:px-20">
+          {/* Left edge line */}
+          <motion.div
+            variants={lineAnimation}
+            initial="hidden"
+            animate="visible"
+            className="w-px h-full bg-white/10"
+          ></motion.div>
+
+          {/* Inner lines — divide into 3 equal parts */}
+          <div className="relative flex-1">
+            <motion.div
+              variants={lineAnimation}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 1, delay: 0.3 }}
+              className="absolute left-1/4 top-0 w-px h-full bg-white/10"
+            ></motion.div>
+
+            <motion.div
+              variants={lineAnimation}
+              initial="hidden"
+              animate="visible"
+              transition={{ duration: 1, delay: 0.5 }}
+              className="absolute left-3/4 top-0 w-px h-full bg-white/10"
+            ></motion.div>
+          </div>
+
+          {/* Right edge line */}
+          <motion.div
+            variants={lineAnimation}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 1, delay: 0.7 }}
+            className="w-px h-full bg-white/10"
+          ></motion.div>
+        </div>
 
         {/* Content */}
         <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 max-w-6xl px-4 sm:px-6 md:px-10 lg:px-20">
-          {/* Heading with smooth letter animation */}
+          {/* Animated Heading */}
           <motion.h1
             className="text-white text-2xl pt-4 sm:text-4xl md:text-5xl lg:text-6xl font-lufga font-bold text-left flex flex-wrap"
             initial="hidden"
