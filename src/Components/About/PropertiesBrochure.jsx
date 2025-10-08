@@ -1,18 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 function PropertiesBrochure() {
+  const [isHeadingVisible, setIsHeadingVisible] = useState(false);
+  const [visibleSections, setVisibleSections] = useState({});
+  const headingRef = useRef(null);
+  const sectionRefs = useRef({});
+
+  const headingText = "Why Choose MAF & Co Properties LLC?";
+
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '0px 0px -50px 0px',
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const section = entry.target.dataset.section;
+          if (section === 'heading') {
+            setIsHeadingVisible(true);
+          } else {
+            setVisibleSections((prev) => ({ ...prev, [section]: true }));
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    if (headingRef.current) observer.observe(headingRef.current);
+    
+    Object.values(sectionRefs.current).forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div id="full" className="w-full bg-white shadow-2xl px-6 sm:px-8 md:px-12 lg:px-24 py-8">
-          
-
-
       <div className="flex min-h-screen">
-   
-
         {/* Left Side - Dummy Text Area (30%) - Hidden on md and below */}
         <div className="hidden lg:block w-[30%] bg-transparent p-10 flex-col justify-center">
           <div className="space-y-6">
-            
             <div className="space-y-4">
               <div className="h-5 bg-gray-300 rounded opacity-60"></div>
               <div className="h-5 bg-gray-300 rounded opacity-50 w-4/5"></div>
@@ -44,16 +75,41 @@ function PropertiesBrochure() {
 
         {/* Right Side - Main Content (70% on lg+, 100% on md and below) */}
         <div className="w-full lg:w-[70%] bg-white">
-          {/* Header */}
+          {/* Header with Letter Animation */}
           <div className="bg-transparent px-4 sm:px-8 lg:px-12 py-8 lg:py-12 overflow-y-auto">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-              Why Choose MAF & Co Properties LLC?
+            <h1
+              ref={headingRef}
+              data-section="heading"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight"
+            >
+              {headingText.split('').map((char, index) => (
+                <span
+                  key={index}
+                  style={{
+                    display: 'inline-block',
+                    opacity: isHeadingVisible ? 1 : 0,
+                    transform: isHeadingVisible ? 'translateY(0)' : 'translateY(-20px)',
+                    transition: `opacity 0.05s ease-out ${index * 0.03}s, transform 0.05s ease-out ${index * 0.03}s`,
+                  }}
+                >
+                  {char === ' ' ? '\u00A0' : char}
+                </span>
+              ))}
             </h1>
           </div>
 
           <div className="px-4 sm:px-8 lg:px-12 py-8 lg:py-12 overflow-y-auto">
             {/* Prime Location Expertise */}
-            <div className="mb-12 lg:mb-16">
+            <div
+              ref={(el) => (sectionRefs.current['prime'] = el)}
+              data-section="prime"
+              className="mb-12 lg:mb-16"
+              style={{
+                opacity: visibleSections['prime'] ? 1 : 0,
+                transform: visibleSections['prime'] ? 'translateX(0)' : 'translateX(-30px)',
+                transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
+              }}
+            >
               <h2 className="text-2xl sm:text-3xl font-semibold text-black/50 mb-4 lg:mb-6">
                 Prime Location Expertise
               </h2>
@@ -65,7 +121,16 @@ function PropertiesBrochure() {
             </div>
 
             {/* Luxury Property Specialists */}
-            <div className="mb-12 lg:mb-16">
+            <div
+              ref={(el) => (sectionRefs.current['luxury'] = el)}
+              data-section="luxury"
+              className="mb-12 lg:mb-16"
+              style={{
+                opacity: visibleSections['luxury'] ? 1 : 0,
+                transform: visibleSections['luxury'] ? 'translateY(0)' : 'translateY(30px)',
+                transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
+              }}
+            >
               <h2 className="text-2xl sm:text-3xl font-semibold text-black/50 mb-4 lg:mb-6">
                 Luxury Property Specialists
               </h2>
@@ -98,7 +163,16 @@ function PropertiesBrochure() {
             </div>
 
             {/* Client-Centric Approach */}
-            <div className="mb-12 lg:mb-16">
+            <div
+              ref={(el) => (sectionRefs.current['client'] = el)}
+              data-section="client"
+              className="mb-12 lg:mb-16"
+              style={{
+                opacity: visibleSections['client'] ? 1 : 0,
+                transform: visibleSections['client'] ? 'translateX(0)' : 'translateX(30px)',
+                transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
+              }}
+            >
               <h2 className="text-2xl sm:text-3xl font-semibold text-black/50 mb-4 lg:mb-6">
                 Client-Centric Approach
               </h2>
@@ -110,7 +184,16 @@ function PropertiesBrochure() {
             </div>
 
             {/* Innovative Solutions */}
-            <div className="mb-12 lg:mb-16">
+            <div
+              ref={(el) => (sectionRefs.current['innovative'] = el)}
+              data-section="innovative"
+              className="mb-12 lg:mb-16"
+              style={{
+                opacity: visibleSections['innovative'] ? 1 : 0,
+                transform: visibleSections['innovative'] ? 'scale(1)' : 'scale(0.95)',
+                transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
+              }}
+            >
               <h2 className="text-2xl sm:text-3xl font-semibold text-black/50 mb-4 lg:mb-6">
                 Innovative Solutions
               </h2>
@@ -143,7 +226,16 @@ function PropertiesBrochure() {
             </div>
 
             {/* Comprehensive Real Estate Services */}
-            <div className="mb-8 lg:mb-12">
+            <div
+              ref={(el) => (sectionRefs.current['comprehensive'] = el)}
+              data-section="comprehensive"
+              className="mb-8 lg:mb-12"
+              style={{
+                opacity: visibleSections['comprehensive'] ? 1 : 0,
+                transform: visibleSections['comprehensive'] ? 'translateY(0)' : 'translateY(30px)',
+                transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
+              }}
+            >
               <h2 className="text-2xl sm:text-3xl font-semibold text-black/50 mb-4 lg:mb-6">
                 Comprehensive Real Estate Services
               </h2>

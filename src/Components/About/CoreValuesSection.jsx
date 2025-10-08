@@ -1,7 +1,74 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Users, Target, Box, Globe } from 'lucide-react';
 
 const CoreValuesSection = () => {
+  const [isHeadingVisible, setIsHeadingVisible] = useState(false);
+  const [visibleElements, setVisibleElements] = useState({
+    paragraph: false,
+    centerImage: false,
+    leftCards: [],
+    rightCards: [],
+  });
+
+  const headingRef = useRef(null);
+  const paragraphRef = useRef(null);
+  const centerImageRef = useRef(null);
+  const leftCardsRefs = useRef([]);
+  const rightCardsRefs = useRef([]);
+
+  const headingText = "Our Core Values";
+
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '0px 0px -50px 0px',
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const section = entry.target.dataset.section;
+          
+          if (section === 'heading') {
+            setIsHeadingVisible(true);
+          } else if (section === 'paragraph') {
+            setVisibleElements((prev) => ({ ...prev, paragraph: true }));
+          } else if (section === 'centerImage') {
+            setVisibleElements((prev) => ({ ...prev, centerImage: true }));
+          } else if (section?.startsWith('leftCard-')) {
+            const cardIndex = parseInt(section.split('-')[1]);
+            setVisibleElements((prev) => ({
+              ...prev,
+              leftCards: [...new Set([...prev.leftCards, cardIndex])],
+            }));
+          } else if (section?.startsWith('rightCard-')) {
+            const cardIndex = parseInt(section.split('-')[1]);
+            setVisibleElements((prev) => ({
+              ...prev,
+              rightCards: [...new Set([...prev.rightCards, cardIndex])],
+            }));
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    if (headingRef.current) observer.observe(headingRef.current);
+    if (paragraphRef.current) observer.observe(paragraphRef.current);
+    if (centerImageRef.current) observer.observe(centerImageRef.current);
+    
+    leftCardsRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+    
+    rightCardsRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="min-h-screen bg-backgound p-4 sm:p-8 lg:p-16">
 
@@ -12,17 +79,41 @@ const CoreValuesSection = () => {
       </div>
 
       {/* Header Section */}
-      <div className="mb-16 sm:mb-24 flex flex-col lg:flex-row items-start gap-8 mx-auto max-w-8xl px-4 sm:px-8 lg:px-16"
-           >
+      <div className="mb-16 sm:mb-24 flex flex-col lg:flex-row items-start gap-8 mx-auto max-w-8xl px-4 sm:px-8 lg:px-16">
         {/* Left Column - Empty */}
         <div className="w-full lg:w-1/3"></div>
 
         {/* Right Column - Paragraph */}
         <div className="w-full lg:w-2/3">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 sm:mb-12">
-            Our Core Values
+          <h1
+            ref={headingRef}
+            data-section="heading"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 sm:mb-12"
+          >
+            {headingText.split('').map((char, index) => (
+              <span
+                key={index}
+                style={{
+                  display: 'inline-block',
+                  opacity: isHeadingVisible ? 1 : 0,
+                  transform: isHeadingVisible ? 'translateY(0)' : 'translateY(-20px)',
+                  transition: `opacity 0.05s ease-out ${index * 0.03}s, transform 0.05s ease-out ${index * 0.03}s`,
+                }}
+              >
+                {char === ' ' ? '\u00A0' : char}
+              </span>
+            ))}
           </h1>
-          <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 leading-relaxed text-left">
+          <p
+            ref={paragraphRef}
+            data-section="paragraph"
+            className="text-lg sm:text-xl lg:text-2xl text-gray-600 leading-relaxed text-left"
+            style={{
+              opacity: visibleElements.paragraph ? 1 : 0,
+              transform: visibleElements.paragraph ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 0.6s ease-out 0.3s, transform 0.6s ease-out 0.3s',
+            }}
+          >
             Home Buying Can Be A Stressful Process, But We Take The Guess Work Out Of Finding A Real Estate
             Agent. We'll Help You Find The Perfect Match To Purchase Your Ideal Home.
           </p>
@@ -36,25 +127,58 @@ const CoreValuesSection = () => {
 
           {/* Left Column */}
           <div className="space-y-8">
-            <Card
-              title="Integrity"
-              description="We uphold the highest standards of ethical conduct, ensuring transparency and honesty in every interaction with our clients and partners."
-              color="blue"
-              Icon={Users}
-              iconPosition="start"
-            />
-            <Card
-              title="Excellence"
-              description="Our commitment to excellence drives us to deliver superior service and achieve the highest level of client satisfaction."
-              color="green"
-              Icon={Box}
-              iconPosition="start"
-            />
+            <div
+              ref={(el) => (leftCardsRefs.current[0] = el)}
+              data-section="leftCard-0"
+              style={{
+                opacity: visibleElements.leftCards.includes(0) ? 1 : 0,
+                transform: visibleElements.leftCards.includes(0)
+                  ? 'translateX(0)'
+                  : 'translateX(100px)',
+                transition: 'opacity 0.7s ease-out 0.2s, transform 0.7s ease-out 0.2s',
+              }}
+            >
+              <Card
+                title="Integrity"
+                description="We uphold the highest standards of ethical conduct, ensuring transparency and honesty in every interaction with our clients and partners."
+                color="blue"
+                Icon={Users}
+                iconPosition="start"
+              />
+            </div>
+            <div
+              ref={(el) => (leftCardsRefs.current[1] = el)}
+              data-section="leftCard-1"
+              style={{
+                opacity: visibleElements.leftCards.includes(1) ? 1 : 0,
+                transform: visibleElements.leftCards.includes(1)
+                  ? 'translateX(0)'
+                  : 'translateX(100px)',
+                transition: 'opacity 0.7s ease-out 0.4s, transform 0.7s ease-out 0.4s',
+              }}
+            >
+              <Card
+                title="Excellence"
+                description="Our commitment to excellence drives us to deliver superior service and achieve the highest level of client satisfaction."
+                color="green"
+                Icon={Box}
+                iconPosition="start"
+              />
+            </div>
           </div>
 
           {/* Center Image */}
           <div className="flex items-center justify-center lg:order-none order-first">
-            <div className="relative w-full max-w-lg aspect-square sm:h-[400px] md:h-[500px] lg:h-[672px]">
+            <div
+              ref={centerImageRef}
+              data-section="centerImage"
+              className="relative w-full max-w-lg aspect-square sm:h-[400px] md:h-[500px] lg:h-[672px]"
+              style={{
+                opacity: visibleElements.centerImage ? 1 : 0,
+                transform: visibleElements.centerImage ? 'scale(1)' : 'scale(0.8)',
+                transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
+              }}
+            >
               <img
                 src="/Container.png"
                 alt="Core Values Center"
@@ -65,20 +189,44 @@ const CoreValuesSection = () => {
 
           {/* Right Column */}
           <div className="space-y-8">
-            <Card
-              title="Innovation"
-              description="We embrace new technologies and creative solutions to enhance our service offerings and stay ahead in the ever-evolving real estate market."
-              color="purple"
-              Icon={Target}
-              iconPosition="end"
-            />
-            <Card
-              title="Sustainability"
-              description="We are dedicated to promoting sustainable practices and contributing positively to the environment and the communities we serve."
-              color="teal"
-              Icon={Globe}
-              iconPosition="end"
-            />
+            <div
+              ref={(el) => (rightCardsRefs.current[0] = el)}
+              data-section="rightCard-0"
+              style={{
+                opacity: visibleElements.rightCards.includes(0) ? 1 : 0,
+                transform: visibleElements.rightCards.includes(0)
+                  ? 'translateX(0)'
+                  : 'translateX(-100px)',
+                transition: 'opacity 0.7s ease-out 0.2s, transform 0.7s ease-out 0.2s',
+              }}
+            >
+              <Card
+                title="Innovation"
+                description="We embrace new technologies and creative solutions to enhance our service offerings and stay ahead in the ever-evolving real estate market."
+                color="purple"
+                Icon={Target}
+                iconPosition="end"
+              />
+            </div>
+            <div
+              ref={(el) => (rightCardsRefs.current[1] = el)}
+              data-section="rightCard-1"
+              style={{
+                opacity: visibleElements.rightCards.includes(1) ? 1 : 0,
+                transform: visibleElements.rightCards.includes(1)
+                  ? 'translateX(0)'
+                  : 'translateX(-100px)',
+                transition: 'opacity 0.7s ease-out 0.4s, transform 0.7s ease-out 0.4s',
+              }}
+            >
+              <Card
+                title="Sustainability"
+                description="We are dedicated to promoting sustainable practices and contributing positively to the environment and the communities we serve."
+                color="teal"
+                Icon={Globe}
+                iconPosition="end"
+              />
+            </div>
           </div>
 
         </div>
