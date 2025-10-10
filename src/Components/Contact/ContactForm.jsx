@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Facebook, Youtube, Linkedin, User, Mail, FileText, DollarSign, MessageCircle } from 'lucide-react';
-import FreeMap from '../Common/FreeMap';
 
 export default function RealEstateContact() {
     const location = useLocation();
@@ -40,7 +39,7 @@ export default function RealEstateContact() {
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
-                className="w-full px-4 sm:px-6 py-3 sm:py-4 pr-12 text-base sm:text-lg bg-backgound rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-700 text-gray-900 placeholder-gray-500"
+                className="w-full px-4 sm:px-6 py-3 sm:py-4 pr-12 text-base sm:text-lg bg-backgound rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-900 placeholder-gray-500"
             />
             <Icon className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
         </FormField>
@@ -52,7 +51,7 @@ export default function RealEstateContact() {
                 name={name}
                 value={value}
                 onChange={onChange}
-                className="w-full px-4 sm:px-6 py-3 sm:py-4 pr-12 text-base sm:text-lg bg-backgound rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-700 text-gray-500 appearance-none"
+                className="w-full px-4 sm:px-6 py-3 sm:py-4 pr-12 text-base sm:text-lg bg-backgound rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-500 appearance-none"
             >
                 {options.map((opt, idx) => (
                     <option key={idx} value={opt.value}>{opt.label}</option>
@@ -70,7 +69,7 @@ export default function RealEstateContact() {
                 value={value}
                 onChange={onChange}
                 rows={4}
-                className="w-full px-4 sm:px-6 py-3 sm:py-4 pr-12 text-base sm:text-lg bg-backgound rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-700 text-gray-900 placeholder-gray-500 resize-none"
+                className="w-full px-4 sm:px-6 py-3 sm:py-4 pr-12 text-base sm:text-lg bg-backgound rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-900 placeholder-gray-500 resize-none"
             />
             <Icon className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
         </FormField>
@@ -136,7 +135,8 @@ export default function RealEstateContact() {
             <div className="bg-backgound min-h-screen py-12">
                 <div className="w-full px-4 sm:px-8 md:px-16 lg:px-20 xl:px-20">
                     <div className="text-center mb-8 sm:mb-12">
-                        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[240px] font-black text-gray-900 mb-2 sm:mb-3">
+                        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[240px] font-black text-gray-900 mb-2 sm:mb-3
+                         bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text">
                             Any Inquiry
                         </h1>
                         <p className="text-base sm:text-3xl text-gray-500">
@@ -175,10 +175,7 @@ export default function RealEstateContact() {
                     </div>
                 </div>
 
-                {/* Map */}
-                <div className="mt-12">
-                    <FreeMap />
-                </div>
+              
             </div>
         );
     }
@@ -194,7 +191,8 @@ export default function RealEstateContact() {
                     <div className="flex-1 h-px bg-gray-300"></div>
                 </div>
 
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-8 sm:mb-12 leading-snug">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-8 sm:mb-12 leading-snug
+                 bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text">
                     Get in Touch with Our Team for Personalized<br className="hidden sm:block" />
                     Real Estate Assistance
                 </h1>

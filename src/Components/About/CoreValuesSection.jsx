@@ -93,6 +93,7 @@ const CoreValuesSection = () => {
             {headingText.split('').map((char, index) => (
               <span
                 key={index}
+                 className="bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text inline-block"
                 style={{
                   display: 'inline-block',
                   opacity: isHeadingVisible ? 1 : 0,

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const projectHeroData = {
   backgroundImage: "AboutHero.png", // 🔹 Replace with your image path
-  title: "Our Projects",
+  title: "Off Plans ",
   underline: true,
 };
 

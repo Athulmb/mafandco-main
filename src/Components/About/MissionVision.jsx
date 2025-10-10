@@ -35,7 +35,7 @@ export default function MissionVision() {
     return (
         <div className="w-full min-h-screen bg-backgound py-16 px-4 sm:px-6 lg:px-8">
             <div className="w-full mx-auto space-y-8">
-                {/* Our Mission Card - Filled background */}
+                {/* Our Mission Card */}
                 <div
                     ref={missionRef}
                     data-section="mission"
@@ -49,23 +49,17 @@ export default function MissionVision() {
                         transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
                     }}
                 >
-                    <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+                    <h2 className="text-4xl lg:text-6xl font-lufga text-gray-900 mb-10">
                         Our Mission
                     </h2>
-                    <p className="text-gray-700 text-base lg:text-lg leading-relaxed">
-                        At MAF & Co Properties LLC, our mission is to provide exceptional real 
-                        estate experiences by offering a curated selection of luxury properties 
-                        that reflect excellence, comfort, and value. We specialize in connecting 
-                        clients with the finest residential and commercial properties in Dubai's 
-                        most sought-after locations, ensuring a seamless journey whether you're 
-                        seeking your dream home or a high-return investment. With a client-
-                        centric approach rooted in trust, integrity, and expertise, we aim to 
-                        exceed expectations and build lasting relationships that stand the test 
-                        of time.
+                    <p className="text-gray-700  lg:text-xl leading-8 lg:leading-9">
+                    At MAF & Co Properties LLC, our mission is to deliver exceptional real estate experiences by connecting clients with Dubai’s most exclusive off-plan developments and premium secondary market properties.
+We strive to provide a seamless, transparent, and rewarding property journey—whether you’re searching for your dream home, a high-ROI investment, or prime commercial real estate.
+Rooted in trust, integrity, and market expertise, we empower investors, homeowners, and agents through strategic real estate solutions, ensuring lasting value, comfort, and client satisfaction.
                     </p>
                 </div>
 
-                {/* Our Vision Card - Transparent with border */}
+                {/* Our Vision Card */}
                 <div
                     ref={visionRef}
                     data-section="vision"
@@ -79,19 +73,18 @@ export default function MissionVision() {
                         transition: 'opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s',
                     }}
                 >
-                    <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+                    <h2 className="text-4xl lg:text-6xl font-lufga text-gray-900 mb-10">
                         Our Vision
                     </h2>
-                    <p className="text-gray-700 text-base lg:text-lg leading-relaxed">
-                        Our vision is to establish MAF & Co Properties LLC as a trusted leader 
-                        in Dubai's real estate market, recognized for our exceptional service, 
-                        innovative solutions, and unwavering dedication to enhancing the quality 
-                        of life for our clients. We aspire to be the first choice for those 
-                        seeking premium real estate opportunities, leveraging the latest 
-                        technologies and market insights to deliver tailored solutions. By 
-                        continually expanding our portfolio and embracing a forward-thinking 
-                        approach, we strive to cater to the diverse needs of our clientele and 
-                        shape the future of real estate in Dubai.
+                    <p className="text-gray-700  lg:text-xl leading-8 lg:leading-9">
+                        Our vision is to establish MAF & Co Properties LLC as the most trusted name
+                        in Dubai’s real estate market, recognized for excellence, elegance, and
+                        client success. We aspire to be the first choice for property investors and
+                        buyers, offering innovative solutions, data-driven insights, and unmatched
+                        service quality. By continuously expanding our portfolio across Dubai’s most
+                        sought-after communities—including Downtown Dubai, Palm Jumeirah, Dubai
+                        Marina, Business Bay, Dubai South, and Dubailand—we aim to shape the future
+                        of luxury living and investment in the UAE.
                     </p>
                 </div>
             </div>

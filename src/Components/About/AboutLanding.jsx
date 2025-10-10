@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const aboutLandingData = {
- image: "/AboutLanding.png",
-    companyLabel: "About our company",
-  title: "Explore Dubai's Finest Properties With MAF & Co Properties LLC",
+  image: "/AboutLanding.png",
+  companyLabel: "About our company",
+  title: `Explore Dubai's Finest Properties With MAF & Co Properties LLC`,
   teamAvatars: [
     "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
     "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
@@ -65,7 +65,7 @@ const AboutLanding = () => {
 
             {/* Image Section */}
             <motion.div
-              className="relative flex items-center justify-start w-full xl:h-[90%] lg:h-full  lg:pt-12 pl-8"
+              className="relative flex items-center justify-start w-full xl:h-[90%] lg:h-full  lg:pt-12 pl-14"
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.3 }}
@@ -94,10 +94,13 @@ const AboutLanding = () => {
 
               {/* Main Heading */}
               <h1
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold text-gray-900 mb-6 sm:mb-8 leading-snug sm:leading-tight"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold mb-6 sm:mb-8 leading-snug sm:leading-tight
+  bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text"
               >
-                {data.title}
+                Explore Dubai's Finest Properties <br className="hidden sm:block" />
+                With MAF & Co Properties LLC
               </h1>
+
 
               {/* Team Avatars and Review */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center mb-6 sm:mb-8 shadow-sm p-4 sm:p-5 rounded-lg">

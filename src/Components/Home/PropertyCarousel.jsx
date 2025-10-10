@@ -86,7 +86,8 @@ export default function PropertyCarousel() {
                     key={idx}
                     className="bg-white text-black px-12 sm:px-16 py-4 rounded-full shadow-lg"
                   >
-                    <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-wide">
+                    <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-wide
+                     bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text">
                       {txt}
                     </span>
                   </div>
@@ -111,7 +112,8 @@ export default function PropertyCarousel() {
                   animate="animate"
                   exit="exit"
                 >
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight
+                   bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text">
                     {slides[currentSlide].title}
                   </h2>
                   <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">

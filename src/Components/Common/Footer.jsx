@@ -83,11 +83,11 @@ export default function MAFCoFooter() {
       </div>
 
       {/* Watermark below the card */}
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-center  ">
         <img
           src="/bottomlogo.png"
           alt="MAF & Co Watermark"
-          className="w-[70vw] md:w-[60vw] xl:w-[80vw]  object-contain select-none brightness-150  "
+          className="w-[70vw] md:w-[60vw] xl:w-[80vw]  object-contain select-none   "
         />
       </div>
     </div>

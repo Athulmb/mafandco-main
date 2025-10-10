@@ -91,7 +91,8 @@ export default function RealEstateNewsSlider() {
         {/* Header & Button */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12 gap-4">
           <div>
-            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 leading-tight
+             bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text">
               Lorem Ipsum Is Simply
               <br />
               Dummy Text Of The Printing
