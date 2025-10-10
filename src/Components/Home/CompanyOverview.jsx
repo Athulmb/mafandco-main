@@ -58,7 +58,7 @@ export default function CompanyOverview() {
           </p>
           <div className="flex-1 h-px bg-gray-300"></div>
         </div>
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight max-w-5xl
+        <h1 className="text-xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight max-w-5xl
          bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text">
           Exceptional Locations, Unrivaled
           <span className="block mt-1 sm:mt-2">Lifestyles. Exceptional Locations, Unrivaled Lifestyles.</span>
@@ -69,7 +69,7 @@ export default function CompanyOverview() {
       <div className="w-full flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-12 lg:pt-20">
 
         {/* Column 1: Logo */}
-        <div className="flex-shrink-0 w-full lg:w-[10%] flex justify-center lg:justify-start">
+        <div className="flex-shrink-0 w-[30%] mdw-[20%] lg:w-[10%] flex justify-center  lg:justify-start">
           <div className="w-full">
             <motion.img
               src="/awardslogo.png"

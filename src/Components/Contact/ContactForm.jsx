@@ -1,6 +1,35 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Facebook, Youtube, Linkedin, User, Mail, FileText, DollarSign, MessageCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+// Animated heading component (letter by letter)
+const AnimatedHeading = ({ text, className }) => {
+    const letters = Array.from(text);
+
+    const container = {
+        hidden: { opacity: 1 },
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.05 },
+        },
+    };
+
+    const child = {
+        hidden: { opacity: 0, y: 50 },
+        visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 500, damping: 30 } },
+    };
+
+    return (
+        <motion.h1 className={className} variants={container} initial="hidden" animate="visible">
+            {letters.map((char, index) => (
+                <motion.span key={index} variants={child} className={char === ' ' ? 'inline-block w-2' : ''}>
+                    {char}
+                </motion.span>
+            ))}
+        </motion.h1>
+    );
+};
 
 export default function RealEstateContact() {
     const location = useLocation();
@@ -15,10 +44,7 @@ export default function RealEstateContact() {
     });
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = (e) => {
@@ -27,9 +53,7 @@ export default function RealEstateContact() {
         alert('Thank you for your inquiry! We will get back to you soon.');
     };
 
-    const FormField = ({ children }) => (
-        <div className="relative">{children}</div>
-    );
+    const FormField = ({ children }) => <div className="relative">{children}</div>;
 
     const InputWithIcon = ({ type, name, placeholder, value, onChange, Icon }) => (
         <FormField>
@@ -75,9 +99,15 @@ export default function RealEstateContact() {
         </FormField>
     );
 
-    // Common form JSX
+    // Contact Form with animation
     const ContactForm = () => (
-        <div className="flex flex-col bg-white p-4 sm:p-6 md:p-8 rounded-xl justify-between space-y-4 sm:space-y-6 md:space-y-8 w-full mx-auto">
+        <motion.div
+            className="flex flex-col bg-white p-4 sm:p-6 md:p-8 rounded-xl justify-between space-y-4 sm:space-y-6 md:space-y-8 w-full mx-auto"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6 }}
+        >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <InputWithIcon type="text" name="name" placeholder="Your name **" value={formData.name} onChange={handleChange} Icon={User} />
                 <InputWithIcon type="email" name="email" placeholder="Email Address **" value={formData.email} onChange={handleChange} Icon={Mail} />
@@ -126,31 +156,54 @@ export default function RealEstateContact() {
             >
                 Submit
             </button>
-        </div>
+        </motion.div>
     );
 
-    // Home page
+    const fadeUpVariant = {
+        hidden: { opacity: 0, y: 40 },
+        visible: { opacity: 1, y: 0 },
+    };
+
+    // Social Icon Button with animation
+    const SocialIconButton = ({ Icon, href }) => (
+        <motion.a
+            whileHover={{ scale: 1.2, backgroundColor: '#E5E7EB' }} // subtle scale & bg color on hover
+            whileTap={{ scale: 0.95 }}
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-gray-300 flex items-center justify-center transition-colors"
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <Icon size={20} className="text-gray-700" />
+        </motion.a>
+    );
+
+    // Home Page
     if (currentPath === '/') {
         return (
             <div className="bg-backgound min-h-screen py-12">
                 <div className="w-full px-4 sm:px-8 md:px-16 lg:px-20 xl:px-20">
-                    <div className="text-center mb-8 sm:mb-12">
-                        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[240px] font-black text-gray-900 mb-2 sm:mb-3
-                         bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text">
-                            Any Inquiry
-                        </h1>
-                        <p className="text-base sm:text-3xl text-gray-500">
-                            Get in touch
-                        </p>
-                    </div>
+                    {/* Animated Heading */}
+                    <motion.div className="text-center mb-8 sm:mb-12">
+                        <AnimatedHeading
+                            text="Any Inquiry"
+                            className="text-5xl sm:text-6xl md:text-7xl lg:text-[240px] font-black text-gray-900 bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text mb-2 sm:mb-3"
+                        />
+                        <p className="text-base sm:text-3xl text-gray-500">Get in touch</p>
+                    </motion.div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 sm:gap-8 lg:gap-12 xl:gap-16">
                         {/* Left Column */}
-                        <div className="flex flex-col space-y-10 sm:space-y-12">
+                        <motion.div
+                            className="flex flex-col space-y-10 sm:space-y-12"
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.3 }}
+                            variants={fadeUpVariant}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                        >
                             <div className="pb-4">
-                                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-8">
-                                    Catch Us Here
-                                </h2>
+                                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-8">Catch Us Here</h2>
                                 <div className="space-y-3 text-gray-500 text-lg sm:text-lg lg:text-xl">
                                     <p>info@mafandco.com</p>
                                     <p>+123 456 789 00-12</p>
@@ -168,38 +221,49 @@ export default function RealEstateContact() {
                                 <p>Monday – Sunday,</p>
                                 <p>9am - 7pm EST</p>
                             </div>
-                        </div>
+                        </motion.div>
 
-                        {/* Right Column - Form */}
+                        {/* Right Column */}
                         <ContactForm />
                     </div>
                 </div>
-
-              
             </div>
         );
     }
 
-    // Non-home page
+    // Non-Home Page
     return (
         <div className="bg-backgound">
             <div className="w-full px-4 sm:px-8 md:px-16 lg:px-20 xl:px-20 py-12 lg:py-20">
-                <div className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12">
-                    <p className="text-sm sm:text-base text-gray-600 whitespace-nowrap">
-                        Let's talk now
-                    </p>
+                {/* Top Line */}
+                <motion.div
+                    className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.3 }}
+                    variants={fadeUpVariant}
+                    transition={{ duration: 0.6 }}
+                >
+                    <p className="text-sm sm:text-base text-gray-600 whitespace-nowrap">Let's talk now</p>
                     <div className="flex-1 h-px bg-gray-300"></div>
-                </div>
+                </motion.div>
 
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-8 sm:mb-12 leading-snug
-                 bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text">
-                    Get in Touch with Our Team for Personalized<br className="hidden sm:block" />
-                    Real Estate Assistance
-                </h1>
+                {/* Animated Heading */}
+                <AnimatedHeading
+                    text="Get in Touch with Our Team for Personalized Real Estate Assistance"
+                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-8 sm:mb-12 leading-snug bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text"
+                />
 
                 <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 sm:gap-8 lg:gap-12 xl:gap-16">
                     {/* Left Column */}
-                    <div className="flex flex-col justify-between space-y-8 sm:space-y-10">
+                    <motion.div
+                        className="flex flex-col justify-between space-y-8 sm:space-y-10"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.3 }}
+                        variants={fadeUpVariant}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
                         <div>
                             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Connect</h2>
                             <div className="space-y-2 sm:space-y-4 text-gray-600 text-base sm:text-lg lg:text-xl">
@@ -218,21 +282,44 @@ export default function RealEstateContact() {
                                 <p>Dubai, UAE</p>
                             </div>
 
-                            <div className="flex gap-3 sm:gap-4">
-                                <button className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors">
-                                    <Facebook size={20} className="text-gray-700" />
-                                </button>
-                                <button className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors">
-                                    <Youtube size={20} className="text-gray-700" />
-                                </button>
-                                <button className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors">
-                                    <Linkedin size={20} className="text-gray-700" />
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                            <motion.div className="flex gap-3 sm:gap-4">
+  {[
+    { Icon: Facebook, href: "https://facebook.com" },
+    { Icon: Youtube, href: "https://youtube.com" },
+    { Icon: Linkedin, href: "https://linkedin.com" },
+  ].map(({ Icon, href }, idx) => (
+    <motion.a
+      key={idx}
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-gray-700"
+      whileHover="hover"
+      initial="rest"
+      animate="rest"
+    >
+      {/* Icon */}
+      <Icon size={20} className="z-10" />
 
-                    {/* Right Column - Form */}
+      {/* Default thin border */}
+      <span className="absolute inset-0 rounded-full border border-gray-300 z-0" />
+
+      {/* Hover thicker border */}
+      <motion.span
+        className="absolute inset-0 rounded-full border border-black z-20"
+        variants={{
+          rest: { scale: 0, opacity: 1, borderWidth: 1 },  // start thin at center
+          hover: { scale: 1, opacity: 1, borderWidth: 2, transition: { duration: 0.3, ease: "easeOut" } }, // grows thick
+        }}
+      />
+    </motion.a>
+  ))}
+</motion.div>
+
+                        </div>
+                    </motion.div>
+
+                    {/* Right Column */}
                     <ContactForm />
                 </div>
             </div>

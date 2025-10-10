@@ -25,7 +25,7 @@ const AboutLanding = () => {
   const data = aboutLandingData;
   const [count, setCount] = useState(0);
   const [showMore, setShowMore] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024); // lg breakpoint
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
   // Animate review count
   useEffect(() => {
@@ -41,7 +41,6 @@ const AboutLanding = () => {
       }
       setCount(start);
     }, 30);
-
     return () => clearInterval(counter);
   }, [data.userReviewCount]);
 
@@ -52,20 +51,40 @@ const AboutLanding = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Heading animation variants
+  const headingContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.04,
+      },
+    },
+  };
+
+  const letterVariant = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", damping: 12, stiffness: 120 },
+    },
+  };
+
   return (
     <motion.div
-      className="w-full h-auto bg-backgound p-4 sm:p-6 lg:px- lg:pt-12"
+      className="w-full h-auto bg-background p-4 sm:p-6 lg:px- lg:pt-12"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
     >
       <div className="max-w-full mx-auto">
-        <div className="bg-transparent rounded-3xl overflow-hidden  ">
+        <div className="bg-transparent rounded-3xl overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-8 xl:gap-x-12 min-h-screen items-stretch">
 
             {/* Image Section */}
             <motion.div
-              className="relative flex items-center justify-start w-full xl:h-[90%] lg:h-full  lg:pt-12 pl-14"
+              className="relative flex items-center justify-start w-full xl:h-[90%] lg:h-full lg:pt-12 pl-14"
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.3 }}
@@ -92,17 +111,21 @@ const AboutLanding = () => {
                 <div className="flex-1 h-px bg-gray-300 ml-3 sm:ml-4"></div>
               </div>
 
-              {/* Main Heading */}
-              <h1
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold mb-6 sm:mb-8 leading-snug sm:leading-tight
-  bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text"
+              {/* Animated Main Heading */}
+              <motion.h1
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold mb-6 sm:mb-8 leading-snug sm:leading-tight bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text flex flex-wrap"
+                variants={headingContainer}
+                initial="hidden"
+                animate="visible"
               >
-                Explore Dubai's Finest Properties <br className="hidden sm:block" />
-                With MAF & Co Properties LLC
-              </h1>
+                {data.title.split("").map((char, index) => (
+                  <motion.span key={index} variants={letterVariant}>
+                    {char === " " ? "\u00A0" : char}
+                  </motion.span>
+                ))}
+              </motion.h1>
 
-
-              {/* Team Avatars and Review */}
+              {/* Team Avatars + Review Count */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center mb-6 sm:mb-8 shadow-sm p-4 sm:p-5 rounded-lg">
                 <div className="flex -space-x-3 mr-0 sm:mr-5 mb-3 sm:mb-0">
                   {data.teamAvatars.map((avatar, index) => (
@@ -110,11 +133,7 @@ const AboutLanding = () => {
                       key={index}
                       className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white shadow-lg overflow-hidden"
                     >
-                      <img
-                        src={avatar}
-                        alt={`Team member ${index + 1}`}
-                        className="w-full h-full object-cover"
-                      />
+                      <img src={avatar} alt={`Team ${index + 1}`} className="w-full h-full object-cover" />
                     </div>
                   ))}
                 </div>
@@ -126,7 +145,6 @@ const AboutLanding = () => {
 
               {/* Description */}
               <div className="space-y-4 sm:space-y-5 text-gray-600 text-sm sm:text-base leading-relaxed mb-8 sm:mb-10">
-                {/* First paragraph with inline Read More */}
                 <p className="text-justify">
                   {data.description[0]}{" "}
                   {isMobile && !showMore && (
@@ -139,7 +157,6 @@ const AboutLanding = () => {
                   )}
                 </p>
 
-                {/* Rest of the paragraphs */}
                 {(showMore || !isMobile) &&
                   data.description.slice(1).map((para, idx) => (
                     <p key={idx} className="text-justify">
@@ -147,7 +164,6 @@ const AboutLanding = () => {
                     </p>
                   ))}
 
-                {/* Show Less link after last paragraph */}
                 {isMobile && showMore && (
                   <p>
                     <span

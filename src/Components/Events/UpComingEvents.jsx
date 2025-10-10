@@ -1,7 +1,14 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
-const EventCard = ({ image, title, description, date, badge }) => (
-  <div className="bg-transparent overflow-hidden rounded-lg hover:shadow-md transition-shadow duration-300 h-full flex flex-col gap-8 min-h-[500px]">
+const EventCard = ({ image, title, description, date, badge, index }) => (
+  <motion.div
+    className="bg-transparent overflow-hidden rounded-lg hover:shadow-md transition-shadow duration-300 h-full flex flex-col gap-8 min-h-[500px]"
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.3 }}
+    transition={{ duration: 0.6, delay: index * 0.1 }}
+  >
     <div className="relative flex-shrink-0">
       <img 
         src={image} 
@@ -23,7 +30,7 @@ const EventCard = ({ image, title, description, date, badge }) => (
       <h3 className="font-bold text-xl text-gray-900 mb-3 flex-shrink-0">{title}</h3>
       <p className="text-gray-600 text-sm leading-relaxed flex-grow">{description}</p>
     </div>
-  </div>
+  </motion.div>
 );
 
 
@@ -88,7 +95,7 @@ const UpcomingEvents = () => {
 
         {/* Events Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-          {events.map((event) => (
+          {events.map((event, index) => (
             <EventCard
               key={event.id}
               image={event.image}
@@ -96,6 +103,7 @@ const UpcomingEvents = () => {
               description={event.description}
               date={event.date}
               badge={event.badge}
+              index={index} // Pass index for staggered animation
             />
           ))}
         </div>
