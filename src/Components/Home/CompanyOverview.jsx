@@ -24,7 +24,7 @@ export default function CompanyOverview() {
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
 
-  // Variants
+  // Variants for fading up animations
   const fadeUpVariants = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
@@ -42,14 +42,26 @@ export default function CompanyOverview() {
     animate: { opacity: 0.8, y: 0, transition: { duration: 1, ease: "easeOut" } }
   };
 
+  // Letter-by-letter heading animation variants
+  const headingContainer = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.03 } },
+  };
+
+  const letterVariant = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", damping: 12, stiffness: 120 } },
+  };
+
   return (
     <div className="min-h-screen bg-backgound py-12 sm:py-16 lg:py-16 px-3 sm:px-6 md:px-8 lg:px-20">
 
-      {/* Top Header with Animation */}
+      {/* Top Header with Scroll-Triggered Heading Animation */}
       <motion.div
         variants={fadeUpVariants}
         initial="initial"
-        animate="animate"
+        whileInView="animate"
+        viewport={{ once: true, amount: 0.3 }}
         className="mb-12 lg:mb-8"
       >
         <div className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12">
@@ -58,18 +70,31 @@ export default function CompanyOverview() {
           </p>
           <div className="flex-1 h-px bg-gray-300"></div>
         </div>
-        <h1 className="text-xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight max-w-5xl
-         bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text">
-          Exceptional Locations, Unrivaled
-          <span className="block mt-1 sm:mt-2">Lifestyles. Exceptional Locations, Unrivaled Lifestyles.</span>
-        </h1>
+
+        {/* Animated Heading */}
+        <motion.h1
+          className="text-xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight max-w-5xl
+          bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text flex flex-wrap"
+          variants={headingContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          {"Exceptional Locations, Unrivaled Lifestyles. Exceptional Locations, Unrivaled Lifestyles.".split("").map(
+            (char, idx) => (
+              <motion.span key={idx} variants={letterVariant}>
+                {char === " " ? "\u00A0" : char}
+              </motion.span>
+            )
+          )}
+        </motion.h1>
       </motion.div>
 
       {/* Carousel and Content */}
       <div className="w-full flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-12 lg:pt-20">
 
         {/* Column 1: Logo */}
-        <div className="flex-shrink-0 w-[30%] mdw-[20%] lg:w-[10%] flex justify-center  lg:justify-start">
+        <div className="flex-shrink-0 w-[30%] mdw-[20%] lg:w-[10%] flex justify-center lg:justify-start">
           <div className="w-full">
             <motion.img
               src="/awardslogo.png"
@@ -77,7 +102,8 @@ export default function CompanyOverview() {
               className="w-full h-full object-contain rounded-full p-1 sm:p-2"
               variants={fadeUpVariants}
               initial="initial"
-              animate="animate"
+              whileInView="animate"
+              viewport={{ once: true, amount: 0.3 }}
             />
           </div>
         </div>
@@ -129,14 +155,15 @@ export default function CompanyOverview() {
               </button>
             </div>
 
-            {/* Logo at bottom right with initial animation + blinking */}
+            {/* Logo at bottom right with blinking */}
             <motion.img
               src="/logo2.png"
               alt="Company Logo"
               className="absolute bottom-4 right-8 w-16 sm:w-20 blinking-logo"
               variants={logoVariants}
               initial="initial"
-              animate="animate"
+              whileInView="animate"
+              viewport={{ once: true, amount: 0.3 }}
             />
           </div>
         </div>
@@ -145,7 +172,8 @@ export default function CompanyOverview() {
         <motion.div
           variants={fadeUpVariants}
           initial="initial"
-          animate="animate"
+          whileInView="animate"
+          viewport={{ once: true, amount: 0.3 }}
           className="relative w-full lg:w-[38%]"
         >
           {/* Watermark */}
@@ -160,7 +188,7 @@ export default function CompanyOverview() {
 
           {/* Text */}
           <div className="space-y-5 sm:space-y-6 relative z-10">
-          <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+            <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry.
               Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae risus eu leo volutpat volutpat. Vivamus egestas, ipsum nec ultrices accumsan, magna arcu blandit sapien, ac vulputate ipsum libero vitae mi. Duis vel sodales elit. Cras nec porttitor felis, vitae pretium magna. Suspendisse id justo non tortor imperdiet dictum in nec est.
             </p>
