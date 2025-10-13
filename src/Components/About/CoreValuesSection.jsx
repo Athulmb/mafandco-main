@@ -159,7 +159,7 @@ const CoreValuesSection = () => {
           </div>
 
           {/* Center Image */}
-          <div className="flex items-center justify-center lg:order-none order-first overflow-hidden">
+          <div className="flex items-center justify-center  bg-backgound lg:order-none order-first overflow-hidden">
             <div
               ref={centerImageRef}
               data-section="centerImage"
@@ -173,7 +173,7 @@ const CoreValuesSection = () => {
               <img
                 src="/Container.png"
                 alt="Core Values Center"
-                className="absolute inset-0 w-full h-full object-cover rounded-3xl shadow-2xl"
+                className="absolute inset-0 w-full h-full object-cover rounded-3xl"
               />
             </div>
           </div>
