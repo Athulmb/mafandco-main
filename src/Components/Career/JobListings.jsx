@@ -9,6 +9,15 @@ export default function JobListings() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
 
+
+  const job = [
+    { title: 'Real Estate Agent', tag: 'Full-Time', description: 'Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Is Simply Dummy Text Of The Printing And' },
+    { title: 'HR', tag: 'Full-Time', description: 'Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Is Simply Dummy Text Of The Printing And' },
+    { title: 'Team Leaders', tag: 'Full-Time', description: 'Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Is Simply Dummy Text Of The Printing And' },
+    { title: 'Marketing Intern', tag: 'Internship', description: 'Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Is Simply Dummy Text Of The Printing And' },
+    { title: 'Sales Manager', tag: 'Full-Time', description: 'Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Is Simply Dummy Text Of The Printing And Typesetting Industry. Lorem Ipsum Is Simply Dummy Text Of The Printing And' },
+  ];
+
   // ✅ Fetch jobs using fetch()
   useEffect(() => {
     const fetchJobs = async () => {
@@ -29,6 +38,7 @@ export default function JobListings() {
     };
 
     fetchJobs();
+    setJobs(job);
   }, []);
 
   if (loading) {
