@@ -64,7 +64,7 @@ const CoreValuesSection = () => {
   }, []);
 
   return (
-    <div className="w-full bg-backgound py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <div className="w-full bg-backgound py-12 px-4 sm:px-6 lg:px-20   overflow-hidden">
       <div className="w-full mx-auto flex flex-col gap-12 lg:gap-20 ">
 
         {/* Section Header */}

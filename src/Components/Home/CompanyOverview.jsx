@@ -65,7 +65,7 @@ export default function CompanyOverview() {
         className="mb-12 lg:mb-8"
       >
         <div className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12">
-          <p className="text-sm sm:text-base text-gray-600 whitespace-nowrap">
+          <p className="text-sm sm:text-base text-primary whitespace-nowrap">
             Company Overview
           </p>
           <div className="flex-1 h-px bg-gray-300"></div>
