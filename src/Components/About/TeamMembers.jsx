@@ -14,13 +14,13 @@ const MeetOurTeam = () => {
   const teamImageRef = useRef(null);
 
   const teamMembers = [
-    { id: 1, name: "Pravin Manokaran", position: "Associate Director", image: "/team1.png", description: "Lorem ipsum is simply dummy text of the printing and typesetting industry." },
-    { id: 2, name: "Muhammed Sulaiman", position: "Associate Director", image: "/api/placeholder/300/400", description: "Lorem ipsum is simply dummy text of the printing and typesetting industry." },
-    { id: 3, name: "Aman Samith", position: "Associate Director", image: "/api/placeholder/300/400", description: "Lorem ipsum is simply dummy text of the printing and typesetting industry." },
-    { id: 4, name: "Muhammed Rihan", position: "Marketing", image: "/api/placeholder/300/400", description: "Lorem ipsum is simply dummy text of the printing and typesetting industry." },
-    { id: 5, name: "Maham Rasool", position: "HR", image: "/api/placeholder/300/400", description: "Lorem ipsum is simply dummy text of the printing and typesetting industry." },
-    { id: 6, name: "Mohamed Yasir", position: "Admin", image: "/api/placeholder/300/400", description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.Lorem ipsum is simply dummy text of the printing and typesetting industry.Lorem ipsum is simply dummy text of the printing and typesetting industry." },
-    { id: 7, name: "Mohamed Yasir", position: "Admin", image: "/api/placeholder/300/400", description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.Lorem ipsum is simply dummy text of the printing and typesetting industry.Lorem ipsum is simply dummy text of the printing and typesetting industry." },
+    { id: 1, name: "Pravin Manokaran", position: "Associate Director", image: "/member1.png", description: "Lorem ipsum is simply dummy text of the printing and typesetting industry." },
+    { id: 2, name: "Muhammed Sulaiman", position: "Associate Director", image: "/member2.png",  description: "Lorem ipsum is simply dummy text of the printing and typesetting industry." },
+    { id: 3, name: "Aman Samith", position: "Associate Director", image: "/member3.png",  description: "Lorem ipsum is simply dummy text of the printing and typesetting industry." },
+    { id: 4, name: "Muhammed Rihan", position: "Marketing", image: "/member4.png",  description: "Lorem ipsum is simply dummy text of the printing and typesetting industry." },
+    { id: 5, name: "Maham Rasool", position: "HR", image: "/member5.png", description: "Lorem ipsum is simply dummy text of the printing and typesetting industry." },
+    { id: 6, name: "Mohamed Yasir", position: "Admin",image: "/member6.png",  description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.Lorem ipsum is simply dummy text of the printing and typesetting industry.Lorem ipsum is simply dummy text of the printing and typesetting industry." },
+    { id: 7, name: "Mohamed Yasir", position: "Admin", image: "/member7.png",  description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.Lorem ipsum is simply dummy text of the printing and typesetting industry.Lorem ipsum is simply dummy text of the printing and typesetting industry." },
   ];
 
   useEffect(() => {
@@ -105,7 +105,7 @@ const MeetOurTeam = () => {
                 <img
                   src={member.image || defaultTeamImage}
                   alt={member.name}
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-cover "
                 />
               </div>
 

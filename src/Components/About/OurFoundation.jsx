@@ -140,7 +140,7 @@ const OurFoundation = () => {
     <div className="sticky top-[15vh] self-start w-full max-w-md sm:max-w-lg md:max-w-xl h-auto">
       <div className="relative w-full">
         <img
-          src="/Founder.png"
+          src="/team1.png"
           alt="K V Baby"
           className="w-full h-auto rounded-2xl"
         />
@@ -179,11 +179,11 @@ const OurFoundation = () => {
               <div className="relative flex justify-center">
                 <div className="w-[80%] sm:w-[70%] md:w-[65%] lg:w-[60%] relative">
                   <img
-                    src="/Founder.png"
+                    src="/coo.png"
                     alt="Indhu Lekha"
-                    className="w-full h-auto rounded-2xl object-cover shadow-lg"
+                    className="w-full h-auto rounded-2xl object-cover "
                   />
-                  <div className="absolute bottom-4 md:bottom-4 left-4">
+                  <div className="absolute bottom-4 md:bottom-4  left-4">
                     <p className="text-white font-black text-2xl sm:text-2xl xl:text-4xl tracking-tight">
                       INDHU LEKHA
                     </p>
@@ -198,9 +198,9 @@ const OurFoundation = () => {
               <div className="relative flex justify-center">
                 <div className="w-[80%] sm:w-[70%] md:w-[65%] lg:w-[60%] relative">
                   <img
-                    src="/Founder.png"
+                    src="/cfo.png"
                     alt="Nanda Kishor"
-                    className="w-full h-auto rounded-2xl object-cover shadow-lg"
+                    className="w-full h-auto rounded-2xl object-cover "
                   />
                   <div className="absolute bottom-4 md:bottom-4 right-4">
                     <p className="text-white font-black text-2xl sm:text-2xl xl:text-4xl tracking-tight">

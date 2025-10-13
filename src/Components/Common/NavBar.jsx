@@ -9,10 +9,13 @@ const navbarData = {
   links: [
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
-    { label: "Projects", href: "/projects" },
+    { label: "Off-Plans", href: "/projects" },
+    { label: "Ready to sell", href: "/contact" },
+
     { label: "Career", href: "/career" },
     { label: "News", href: "/news" },
     { label: "Contact Us", href: "/contact" },
+    
   ],
 };
 

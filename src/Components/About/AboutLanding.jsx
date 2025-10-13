@@ -73,7 +73,7 @@ const AboutLanding = () => {
 
   return (
     <motion.div
-      className="w-full h-auto bg-background p-4 sm:p-6 lg:px- lg:pt-12"
+      className="w-full h-auto bg-backgound p-4 sm:p-6 lg:px- lg:pt-12"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}

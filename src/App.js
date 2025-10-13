@@ -10,6 +10,7 @@ import Projects from "./Pages/Projects";
 import Contacts from "./Pages/Contacts";
 import Career from './Pages/Career';
 import ErrorPage from './Components/Common/Error';
+import News from './Pages/News';
 
 const App = () => {
   return (
@@ -20,7 +21,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contacts />} />
           <Route path="/about" element={<About />} />
-          <Route path="/news" element={<Events />} />
+          <Route path="/news" element={<News/>} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/career" element={<Career />} />
         </Route>

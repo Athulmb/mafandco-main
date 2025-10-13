@@ -7,8 +7,8 @@ const Events = () => {
   return (
    <>
    <EventsHero/>
-   <UpcomingEvents/>
-   <ArchitecturalLayout/>
+   {/* <UpcomingEvents/>
+   <ArchitecturalLayout/> */}
    </>
   )
 }

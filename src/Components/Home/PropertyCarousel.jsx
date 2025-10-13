@@ -21,7 +21,7 @@ export default function PropertyCarousel() {
       description:
         "Discover cutting-edge architectural designs that redefine modern living spaces with sustainability at its core",
       image:
-        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&h=900&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&h=900&fit=crop",
       video: "https://youtu.be/_S0HbgDDWRQ?si=9PTMNBfjpWW-GJ0p",
     },
     {
@@ -29,7 +29,7 @@ export default function PropertyCarousel() {
       description:
         "Experience premium properties featuring world-class amenities and breathtaking designs for sophisticated living",
       image:
-        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1600&h=900&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&h=900&fit=crop",
       video: "https://youtu.be/_S0HbgDDWRQ?si=9PTMNBfjpWW-GJ0p",
     },
   ];
@@ -81,11 +81,11 @@ export default function PropertyCarousel() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-backgound">
       {/* Carousel Section */}
       <div className="w-full px-3 sm:px-6 md:px-8 lg:px-20">
-        <div className="bg-white p-5 rounded-2xl shadow-lg overflow-hidden w-full mx-auto relative xl:aspect-[1300/600]">
-          <div className="grid grid-cols-1 lg:grid-cols-[37.7%_62.3%] gap-6 lg:gap-0 h-full rounded-xl">
+        <div className="bg-white p-5 rounded-2xl  overflow-hidden w-full mx-auto relative xl:aspect-[1300/600]">
+          <div className="grid grid-cols-1 lg:grid-cols-[37.7%_62.3%] gap-6 lg:gap-0 h-full rounded-xl bg-backgound">
             {/* Left Content */}
             <div className="flex flex-col justify-around p-4 sm:p-6 order-2 lg:order-1 w-5/6">
               <AnimatePresence mode="wait">
