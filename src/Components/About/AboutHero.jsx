@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const aboutHeroData = {
-  backgroundImage: "AboutHero.png", // 🔹 Replace with your image path
+  backgroundImage: "AboutHero.jpg", // 🔹 Replace with your image path
   title: "About the Company",
   underline: true,
 };
@@ -27,8 +27,7 @@ const AboutHero = () => {
         <img
           src={aboutHeroData.backgroundImage}
           alt={aboutHeroData.title}
-          className="w-full h-auto object-cover"
-        />
+          className="w-full h-screen bg-cover filter"        />
 
         {/* 🔹 Vertical Lines with animation */}
         <div className="absolute inset-0 flex justify-between pointer-events-none px-4 sm:px-6 md:px-10 lg:px-20">

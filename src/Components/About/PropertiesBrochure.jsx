@@ -43,34 +43,7 @@ function PropertiesBrochure() {
       <div className="flex min-h-screen">
         {/* Left Side - Dummy Text Area (30%) - Hidden on md and below */}
         <div className="hidden lg:block w-[30%] bg-transparent pt-16 flex-col justify-center">
-          <div className="space-y-6">
-            <div className="space-y-4">
-              <div className="h-5 bg-gray-300 rounded opacity-60"></div>
-              <div className="h-5 bg-gray-300 rounded opacity-50 w-4/5"></div>
-              <div className="h-5 bg-gray-300 rounded opacity-40 w-3/5"></div>
-            </div>
-
-            <div className="space-y-4 mt-8">
-              <div className="h-4 bg-gray-250 rounded opacity-50"></div>
-              <div className="h-4 bg-gray-250 rounded opacity-40 w-5/6"></div>
-              <div className="h-4 bg-gray-250 rounded opacity-30 w-4/5"></div>
-              <div className="h-4 bg-gray-250 rounded opacity-40 w-3/4"></div>
-            </div>
-
-            <div className="space-y-4 mt-8">
-              <div className="h-4 bg-gray-200 rounded opacity-60"></div>
-              <div className="h-4 bg-gray-200 rounded opacity-50 w-4/5"></div>
-              <div className="h-4 bg-gray-200 rounded opacity-40 w-2/3"></div>
-            </div>
-
-            <div className="space-y-3 mt-8">
-              <div className="h-3 bg-gray-200 rounded opacity-50"></div>
-              <div className="h-3 bg-gray-200 rounded opacity-40 w-5/6"></div>
-              <div className="h-3 bg-gray-200 rounded opacity-30 w-3/4"></div>
-              <div className="h-3 bg-gray-200 rounded opacity-40 w-4/5"></div>
-              <div className="h-3 bg-gray-200 rounded opacity-30 w-2/3"></div>
-            </div>
-          </div>
+       
         </div>
 
         {/* Right Side - Main Content (70% on lg+, 100% on md and below) */}

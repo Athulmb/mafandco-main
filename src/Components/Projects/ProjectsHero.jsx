@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const projectHeroData = {
-  backgroundImage: "AboutHero.png", // 🔹 Replace with your image path
+  backgroundImage: "AboutHero.jpg",// 🔹 Replace with your image path
   title: "Off Plans ",
   underline: true,
 };
@@ -21,7 +21,7 @@ const ProjectHero = () => {
         <img
           src={projectHeroData.backgroundImage}
           alt={projectHeroData.title}
-          className="w-full h-auto filter"
+          className="w-full h-screen bg-cover filter"
         />
 
         {/* Content */}

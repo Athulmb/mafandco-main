@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const contactHeroData = {
-  backgroundImage: "AboutHero.png",
+  backgroundImage: "AboutHero.jpg",
   title: "Tailored Real Estate Solutions To Meet Every need",
   underline: true,
 };
@@ -21,9 +21,8 @@ const ContactHero = () => {
         <img
           src={contactHeroData.backgroundImage}
           alt={contactHeroData.title}
-          className="w-full h-auto min-h-[300px] filter"
-        />
-
+          className="w-full h-screen bg-cover filter"        />
+        
         {/* Content */}
         <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 max-w-4xl px-4 sm:px-6 md:px-10 lg:px-20">
           {/* Heading with smooth letter animation */}

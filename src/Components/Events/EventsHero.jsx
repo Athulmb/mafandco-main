@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const eventsHeroData = {
-  backgroundImage: "AboutHero.png", // 🔹 Replace with your image path
+  backgroundImage: "AboutHero.jpg",// 🔹 Replace with your image path
   title: "Our Events",
   underline: true,
 };
@@ -21,8 +21,8 @@ const EventsHero = () => {
         <img
           src={eventsHeroData.backgroundImage}
           alt={eventsHeroData.title}
-          className="w-full h-auto filter"
-        />
+          className="w-full h-screen bg-cover filter"        />
+
 
         {/* Content */}
         <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 max-w-6xl px-4 sm:px-6 md:px-10 lg:px-20">
