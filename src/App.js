@@ -11,6 +11,8 @@ import Contacts from "./Pages/Contacts";
 import Career from './Pages/Career';
 import ErrorPage from './Components/Common/Error';
 import News from './Pages/News';
+import Movein from './Pages/Movein';
+import InnerPage from './Pages/InnerPage';
 
 const App = () => {
   return (
@@ -24,6 +26,10 @@ const App = () => {
           <Route path="/news" element={<News/>} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/career" element={<Career />} />
+          <Route path="/movein" element={<Movein />} />
+          <Route path="/inner" element={<InnerPage />} />
+
+
         </Route>
 
         {/* ✅ Catch-all route OUTSIDE Layout (no navbar/footer) */}

@@ -1,19 +1,29 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
-const projectHeroData = {
-  backgroundImage: "AboutHero.jpg",// 🔹 Replace with your image path
-  title: "Off Plans ",
-  underline: true,
+const heroDataMap = {
+  "/projects": {
+    title: "Off Plans",
+    backgroundImage: "AboutHero.jpg", // Replace with your actual image path
+    underline: true,
+  },
+  "/movein": {
+    title: "Ready to Move-in",
+    backgroundImage: "AboutHero.jpg", // Replace with your actual image path
+    underline: true,
+  },
 };
 
-// Variants for each letter
 const letterAnimation = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
 };
 
 const ProjectHero = () => {
+  const location = useLocation();
+  const projectHeroData = heroDataMap[location.pathname] || heroDataMap["/projects"];
+
   return (
     <section className="w-full flex">
       {/* Image */}

@@ -10,7 +10,7 @@ const navbarData = {
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
     { label: "Off-Plans", href: "/projects" },
-    { label: "Ready to sell", href: "/contact" },
+    { label: "Ready to move-in", href: "/movein" },
 
     { label: "Career", href: "/career" },
     { label: "News", href: "/news" },
