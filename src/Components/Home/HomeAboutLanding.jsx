@@ -1,4 +1,4 @@
-// src/components/AboutLanding.jsx
+// src/components/HomeAboutLanding.jsx
 import React, { useEffect, useState, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -26,11 +26,12 @@ const aboutLandingData = {
   buttonText: "Contact Us",
 };
 
-const AboutLanding = () => {
+const HomeAboutLanding = () => {
   const data = aboutLandingData;
   const [count, setCount] = useState(0);
   const [showMore, setShowMore] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+
   const containerRef = useRef(null);
 
   // Animate review count
@@ -57,22 +58,53 @@ const AboutLanding = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Scroll animation
+  // Sticky scroll animation
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
-  const yTransform = useTransform(scrollYProgress, [0, 1], [0, 0]); // you can adjust for animation
+  const yTransform = useTransform(scrollYProgress, [0, 1], [0, 0]); // keep motion effect
+
+  const headingContainer = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.04 } },
+  };
+
+  const letterVariant = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", damping: 12, stiffness: 120 } },
+  };
 
   return (
     <motion.div
       ref={containerRef}
-      className="w-full bg-background py-12 px-4 sm:px-6 lg:px-20 lg:pt-12"
+      className="w-full bg-backgound py-12 px-4 sm:px-6 lg:px-20 lg:pt-12"
     >
       <div className="max-w-full mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-8 xl:gap-x-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-12 items-start min-h-screen">
 
-          {/* LEFT: Sticky Content Section */}
+          {/* LEFT: Images */}
+          <div className="lg:col-span-1 flex flex-col gap-6">
+            {data.images.map((img, index) => (
+              <motion.div
+                key={index}
+                className="w-[88%] overflow-hidden rounded-2xl shadow-lg"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                style={{ aspectRatio: "550 / 662" }}
+              >
+                <img
+                  src={img}
+                  alt={`About image ${index + 1}`}
+                  className="w-full h-full object-cover object-center rounded-2xl"
+                />
+              </motion.div>
+            ))}
+          </div>
+
+          {/* RIGHT: Sticky Content Section */}
           <motion.div
             className="lg:col-span-1 flex flex-col justify-start sticky top-24"
             style={{ y: yTransform }}
@@ -84,9 +116,18 @@ const AboutLanding = () => {
               <div className="flex-1 h-px bg-gray-300 ml-3 sm:ml-4"></div>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold mb-6 sm:mb-8 leading-snug sm:leading-tight bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text">
-              {data.title}
-            </h1>
+            <motion.h1
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold mb-6 sm:mb-8 leading-snug sm:leading-tight bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text flex flex-wrap"
+              variants={headingContainer}
+              initial="hidden"
+              animate="visible"
+            >
+              {data.title.split("").map((char, index) => (
+                <motion.span key={index} variants={letterVariant}>
+                  {char === " " ? "\u00A0" : char}
+                </motion.span>
+              ))}
+            </motion.h1>
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center mb-6 sm:mb-8 shadow-sm p-4 sm:p-5 rounded-lg">
               <div className="flex -space-x-3 mr-0 sm:mr-5 mb-3 sm:mb-0">
@@ -150,27 +191,10 @@ const AboutLanding = () => {
             </button>
           </motion.div>
 
-          {/* RIGHT: Image Section */}
-          <div className="lg:col-span-1 flex flex-col gap-6">
-            {data.images.map((img, index) => (
-              <div
-                key={index}
-                className="w-[88%] overflow-hidden rounded-2xl shadow-lg self-end"
-                style={{ aspectRatio: "550 / 662" }}
-              >
-                <img
-                  src={img}
-                  alt={`About image ${index + 1}`}
-                  className="w-full h-full object-cover object-center rounded-2xl"
-                />
-              </div>
-            ))}
-          </div>
-
         </div>
       </div>
     </motion.div>
   );
 };
 
-export default AboutLanding;
+export default HomeAboutLanding;

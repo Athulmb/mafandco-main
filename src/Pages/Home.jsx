@@ -6,13 +6,14 @@ import CompanyOverview from '../Components/Home/CompanyOverview'
 import ContactForm from '../Components/Contact/ContactForm'
 import RealEstateNews from '../Components/Home/RealEstateNews'
 import CompanyFacts from '../Components/Home/CompanyFacts'
+import HomeAboutLanding from '../Components/Home/HomeAboutLanding'
 
 
 const Home = () => {
   return (
    <>
    <HomeHero/>
-   <AboutLanding/>
+<HomeAboutLanding/>
    <PropertyCarousel/>
    <CompanyOverview/>
    <ContactForm/>

@@ -14,8 +14,8 @@ const luxuryPropertyData = {
 
 function LuxuryProperty() {
   return (
-    <section className="bg-gray-100 py-16 md:py-24 lg:py-32">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="bg-gray-100 py-16 md:py-24 lg:py-32 px-4 sm:px-6 md:px-10 lg:px-16 xl:px-20 ">
+      <div className=" mx-auto ">
       <div className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12">
                     <p className="text-lg font-semibold text-primary whitespace-nowrap"> {luxuryPropertyData.tag}</p>
                     <div className="flex-1 h-px bg-primary"></div>

@@ -14,14 +14,15 @@ const MeetOurTeam = () => {
   const teamImageRef = useRef(null);
 
   const teamMembers = [
-    { id: 1, name: "Pravin Manokaran", position: "Associate Director", image: "/member1.png", description: "Lorem ipsum is simply dummy text of the printing and typesetting industry." },
-    { id: 2, name: "Muhammed Sulaiman", position: "Associate Director", image: "/member2.png",  description: "Lorem ipsum is simply dummy text of the printing and typesetting industry." },
-    { id: 3, name: "Aman Samith", position: "Associate Director", image: "/member3.png",  description: "Lorem ipsum is simply dummy text of the printing and typesetting industry." },
-    { id: 4, name: "Muhammed Rihan", position: "Marketing", image: "/member4.png",  description: "Lorem ipsum is simply dummy text of the printing and typesetting industry." },
-    { id: 5, name: "Maham Rasool", position: "HR", image: "/member5.png", description: "Lorem ipsum is simply dummy text of the printing and typesetting industry." },
-    { id: 6, name: "Mohamed Yasir", position: "Admin",image: "/member6.png",  description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.Lorem ipsum is simply dummy text of the printing and typesetting industry.Lorem ipsum is simply dummy text of the printing and typesetting industry." },
-    { id: 7, name: "Mohamed Yasir", position: "Admin", image: "/member7.png",  description: "Lorem ipsum is simply dummy text of the printing and typesetting industry.Lorem ipsum is simply dummy text of the printing and typesetting industry.Lorem ipsum is simply dummy text of the printing and typesetting industry." },
+    { id: 1, name: "Pravin Manokaran", position: "Associate Director", image: "/member1.png", description: "Lorem ipsum...", phone: "919876543210" },
+    { id: 2, name: "Muhammed Sulaiman", position: "Associate Director", image: "/member2.png", description: "Lorem ipsum...", phone: "919812345678" },
+    { id: 3, name: "Aman Samith", position: "Associate Director", image: "/member3.png", description: "Lorem ipsum...", phone: "919876512345" },
+    { id: 4, name: "Muhammed Rihan", position: "Marketing", image: "/member4.png", description: "Lorem ipsum...", phone: "919898765432" },
+    { id: 5, name: "Maham Rasool", position: "HR", image: "/member5.png", description: "Lorem ipsum...", phone: "919812398765" },
+    { id: 6, name: "Mohamed Yasir", position: "Admin", image: "/member6.png", description: "Lorem ipsum...", phone: "919876598712" },
+    { id: 7, name: "Mohamed Yasir", position: "Admin", image: "/member7.png", description: "Lorem ipsum...", phone: "919812367890" },
   ];
+
 
   useEffect(() => {
     const observerOptions = {
@@ -33,7 +34,7 @@ const MeetOurTeam = () => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const section = entry.target.dataset.section;
-          
+
           if (section === 'header') {
             setVisibleElements(prev => ({ ...prev, header: true }));
           } else if (section === 'teamImage') {
@@ -53,7 +54,7 @@ const MeetOurTeam = () => {
 
     if (headerRef.current) observer.observe(headerRef.current);
     if (teamImageRef.current) observer.observe(teamImageRef.current);
-    
+
     teamCardsRefs.current.forEach((ref) => {
       if (ref) observer.observe(ref);
     });
@@ -122,10 +123,14 @@ const MeetOurTeam = () => {
                 </p>
 
                 <div className="mt-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                  <button className="flex items-center justify-center gap-4 bg-primary hover:bg-teal-700 text-white px-7 py-3 rounded-full transition-colors duration-200 text-sm sm:text-base font-medium">
+                  <button
+                    onClick={() => window.open(`https://wa.me/${member.phones}`, "_blank")}
+                    className="flex items-center justify-center gap-4 bg-primary hover:bg-teal-700 text-white px-7 py-3 rounded-full transition-colors duration-200 text-sm sm:text-base font-medium"
+                  >
                     Contact
                     <img src="/whatsapplogo.png" alt="WhatsApp" className="w-8 h-8 object-contain" />
                   </button>
+
                   <button className="flex items-center justify-center gap-2 text-primary hover:text-teal-700 transition-colors duration-200 group text-sm sm:text-base font-medium px-5 py-3">
                     Learn More
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
