@@ -14,24 +14,25 @@ const luxuryPropertyData = {
 
 function LuxuryProperty() {
   return (
-    <section className="bg-gray-100 py-16 md:py-24 lg:py-32 px-4 sm:px-6 md:px-10 lg:px-16 xl:px-20 ">
-      <div className=" mx-auto ">
-      <div className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12">
-                    <p className="text-lg font-semibold text-primary whitespace-nowrap"> {luxuryPropertyData.tag}</p>
-                    <div className="flex-1 h-px bg-primary"></div>
-                </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <section className="bg-gray-100 py-16 md:py-24 lg:py-32 px-4 sm:px-6 md:px-10 lg:px-16 xl:px-40">
+      <div className="mx-auto">
 
-          {/* Left Section: Text Content */}
-          <div className="flex flex-col">
-            <span className="text-sm font-medium uppercase text-gray-500 mb-2">
-             
-            </span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-6 text-gray-900
+        {/* Tag with line */}
+        <div className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12 lg:mb-20">
+          <p className="text-lg font-semibold text-primary/80 whitespace-nowrap">{luxuryPropertyData.tag}</p>
+          <div className="flex-1 h-px bg-primary/80"></div>
+        </div>
+
+        {/* Flex Layout: Left text 60%, Right image 40% */}
+        <div className="flex flex-col lg:flex-row items-start gap-8">
+
+          {/* Left Section: Text */}
+          <div className="lg:w-[60%] flex flex-col">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-10 text-gray-900
                   bg-gradient-to-r from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text">
               {luxuryPropertyData.title}
             </h1>
-            <div className="space-y-4 text-base sm:text-lg text-gray-700 max-w-xl">
+            <div className="space-y-6 sm:space-y-8 text-base sm:text-lg lg:text-2xl text-gray-500 w-[85%]">
               {luxuryPropertyData.description.map((desc, index) => (
                 <p key={index}>{desc}</p>
               ))}
@@ -39,8 +40,8 @@ function LuxuryProperty() {
           </div>
 
           {/* Right Section: Image */}
-          <div className="flex justify-center lg:justify-end bg-transparent ">
-            <div className="relative w-full bg-transparent max-w-xl aspect-[1/1] rounded-2xl overflow-hidden shadow-2xl mt-12">
+          <div className="lg:w-[40%] flex justify-center lg:justify-end">
+            <div className="relative w-full aspect-[1/1] rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src={luxuryPropertyData.imageUrl}
                 alt="Luxurious Property"

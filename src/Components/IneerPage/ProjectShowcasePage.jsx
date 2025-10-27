@@ -47,14 +47,15 @@ export default function ProjectShowcasePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 font-sans">
+    <div className="min-h-screen bg-gray-100 font-sans px-6 sm:px-10 lg:px-20 py-10">
+      <div className="bg-white rounded-2xl overflow-hidden shadow-xl">
 
       {/* --------------------- Section 5: Ultimate Phase + Stats --------------------- */}
-      <section className="pt-12 sm:pt-20 pb-16 sm:pb-24 bg-white">
+      <section className="pt-12 sm:pt-20  sm:pb-24 bg-white">
         {/* Off-Plan Title with Line */}
        
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl ">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 ">
         <div className="flex items-center gap-3 sm:gap-4 mb-20 ">
           <p className="text-lg font-semibold text-primary whitespace-nowrap">about</p>
           <div className="flex-1 h-px bg-primary"></div>
@@ -87,20 +88,30 @@ export default function ProjectShowcasePage() {
             </div>
           </div>
 
-          {/* Middle: Project Stats */}
-          <div className="text-center mb-12 mt-6 sm:mt-10">
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-10">The Projects</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8">
-              {statsData.map((stat, index) => (
-                <ProjectStatsCard key={index} title={stat.title} price={stat.price} />
-              ))}
-            </div>
-          </div>
+        {/* Middle: Project Stats */}
+<div className="text-center mb-12 mt-6 sm:mt-10">
+  <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-10">The Projects</h3>
+  
+  <div className="grid grid-cols-1 sm:grid-cols-3 gap-0 lg:gap-0 ">
+    {statsData.map((stat, index) => (
+      <div
+        key={index}
+        className={`flex flex-col items-center justify-center p-6 text-center ${
+          index !== statsData.length - 1 ? 'border-r-2 border-gray-200/90' : ''
+        }`}
+      >
+        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">{stat.title}</h3>
+        <p className="text-sm sm:text-base text-gray-600">{stat.price}</p>
+      </div>
+    ))}
+  </div>
+</div>
+
         </div>
       </section>
 
       {/* --------------------- Section 6: Gallery --------------------- */}
-      <section className="bg-gray-100 py-20">
+      <section className="bg-white pb-14 ">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-10">
             Gallery
@@ -141,6 +152,7 @@ export default function ProjectShowcasePage() {
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 }

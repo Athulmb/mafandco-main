@@ -23,7 +23,6 @@ const MeetOurTeam = () => {
     { id: 7, name: "Mohamed Yasir", position: "Admin", image: "/member7.png", description: "Lorem ipsum...", phone: "919812367890" },
   ];
 
-
   useEffect(() => {
     const observerOptions = {
       threshold: 0.15,
@@ -64,6 +63,80 @@ const MeetOurTeam = () => {
 
   return (
     <div className="bg-backgound py-20 px-6 sm:px-10 lg:px-20">
+      <style>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(40px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+
+        .team-card {
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .team-card:hover {
+          transform: translateY(-15px) scale(1.02);
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .team-card:hover .card-image {
+          transform: scale(1.1);
+        }
+
+        .team-card:hover .card-gradient {
+          opacity: 0.9;
+        }
+
+        .card-image {
+          transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-gradient {
+          transition: opacity 0.4s ease;
+        }
+
+        .button-hover {
+          transition: all 0.3s ease;
+        }
+
+        .button-hover:hover {
+          transform: scale(1.05);
+        }
+
+        .learn-more-arrow {
+          transition: transform 0.3s ease;
+        }
+
+        .team-card:hover .learn-more-arrow {
+          transform: translateX(5px);
+        }
+      `}</style>
+
       {/* Header */}
       <div
         ref={headerRef}
@@ -71,8 +144,7 @@ const MeetOurTeam = () => {
         className="text-center mb-16"
         style={{
           opacity: visibleElements.header ? 1 : 0,
-          transform: visibleElements.header ? 'translateY(0) scale(1)' : 'translateY(-20px) scale(0.95)',
-          transition: 'opacity 0.7s ease-out, transform 0.7s ease-out',
+          animation: visibleElements.header ? 'scaleIn 0.8s ease-out forwards' : 'none',
         }}
       >
         <p className="text-gray-600 text-base sm:text-lg font-medium mb-4">
@@ -86,27 +158,27 @@ const MeetOurTeam = () => {
 
       {/* Team Grid */}
       <div className="w-full mb-20">
-        <div className="grid grid-cols-1  lg:grid-cols-2 xl:grid-cols-3 gap-10 sm:gap-12 lg:gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10 sm:gap-12 lg:gap-20">
           {teamMembers.map((member, index) => (
             <div
               key={member.id}
               ref={(el) => (teamCardsRefs.current[index] = el)}
               data-section={`card-${index}`}
-              className="bg-white rounded-3xl hover:shadow-xl border-[3px] border-gray-200 transition-all duration-300 w-full flex flex-col p-2 sm:p-3 aspect-[371/604]"
+              className="team-card bg-white rounded-3xl border-[3px] border-gray-200 w-full flex flex-col p-2 sm:p-3 aspect-[371/604]"
               style={{
                 opacity: visibleElements.teamCards.includes(index) ? 1 : 0,
-                transform: visibleElements.teamCards.includes(index)
-                  ? 'translateY(0) rotateX(0deg)'
-                  : 'translateY(30px) rotateX(10deg)',
-                transition: `opacity 0.6s ease-out ${index * 0.1}s, transform 0.6s ease-out ${index * 0.1}s`,
+                animation: visibleElements.teamCards.includes(index)
+                  ? `fadeInUp 0.6s ease-out ${index * 0.15}s forwards`
+                  : 'none',
               }}
             >
               {/* Image Section */}
-              <div className="relative m-4 overflow-hidden bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] aspect-[330/340] flex items-center justify-center ">
+              <div className="relative m-4 overflow-hidden bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] aspect-[330/340] flex items-center justify-center rounded-2xl">
+                <div className="card-gradient absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10"></div>
                 <img
                   src={member.image || defaultTeamImage}
                   alt={member.name}
-                  className="w-full h-full object-cover "
+                  className="card-image w-full h-full object-cover"
                 />
               </div>
 
@@ -124,8 +196,8 @@ const MeetOurTeam = () => {
 
                 <div className="mt-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   <button
-                    onClick={() => window.open(`https://wa.me/${member.phones}`, "_blank")}
-                    className="flex items-center justify-center gap-4 bg-primary hover:bg-teal-700 text-white px-7 py-3 rounded-full transition-colors duration-200 text-sm sm:text-base font-medium"
+                    onClick={() => window.open(`https://wa.me/${member.phone}`, "_blank")}
+                    className="button-hover flex items-center justify-center gap-4 bg-primary hover:bg-teal-700 text-white px-7 py-3 rounded-full transition-colors duration-200 text-sm sm:text-base font-medium"
                   >
                     Contact
                     <img src="/whatsapplogo.png" alt="WhatsApp" className="w-8 h-8 object-contain" />
@@ -133,7 +205,7 @@ const MeetOurTeam = () => {
 
                   <button className="flex items-center justify-center gap-2 text-primary hover:text-teal-700 transition-colors duration-200 group text-sm sm:text-base font-medium px-5 py-3">
                     Learn More
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
+                    <ArrowRight className="learn-more-arrow w-5 h-5" />
                   </button>
                 </div>
               </div>
@@ -149,8 +221,7 @@ const MeetOurTeam = () => {
         className="flex justify-center"
         style={{
           opacity: visibleElements.teamImage ? 1 : 0,
-          transform: visibleElements.teamImage ? 'scale(1)' : 'scale(0.9)',
-          transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
+          animation: visibleElements.teamImage ? 'scaleIn 1s ease-out forwards' : 'none',
         }}
       >
         <img
