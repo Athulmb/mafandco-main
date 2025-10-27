@@ -1,11 +1,15 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Play, Maximize2, Volume2 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function PropertyCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+
+  const carouselRef = useRef(null);
+  const scrollTimeout = useRef(null);
 
   const slides = [
     {
@@ -40,11 +44,15 @@ export default function PropertyCarousel() {
   const getEmbedUrl = (url) => {
     if (url.includes("youtu.be")) {
       const id = url.split("youtu.be/")[1].split("?")[0];
-      return `https://www.youtube.com/embed/${id}?autoplay=1&mute=${isMuted ? 1 : 0}&fs=1&modestbranding=1&rel=0`;
+      return `https://www.youtube.com/embed/${id}?autoplay=1&mute=${
+        isMuted ? 1 : 0
+      }&fs=1&modestbranding=1&rel=0`;
     }
     if (url.includes("youtube.com/watch?v=")) {
       const id = new URL(url).searchParams.get("v");
-      return `https://www.youtube.com/embed/${id}?autoplay=1&mute=${isMuted ? 1 : 0}&fs=1&modestbranding=1&rel=0`;
+      return `https://www.youtube.com/embed/${id}?autoplay=1&mute=${
+        isMuted ? 1 : 0
+      }&fs=1&modestbranding=1&rel=0`;
     }
     return url;
   };
@@ -56,33 +64,84 @@ export default function PropertyCarousel() {
     }
   };
 
-  const carouselRef = useRef(null);
-
+  // 🧭 Smooth snapping logic
   const handleScroll = () => {
+    if (!carouselRef.current) return;
     const scrollLeft = carouselRef.current.scrollLeft;
     const width = carouselRef.current.offsetWidth;
     const index = Math.round(scrollLeft / width);
-    setCurrentSlide(index);
+
     setIsPlaying(false);
+    setIsScrolling(true);
+
+    clearTimeout(scrollTimeout.current);
+    scrollTimeout.current = setTimeout(() => {
+      smoothScrollTo(index * width);
+      setCurrentSlide(index);
+      setIsScrolling(false);
+    }, 100);
   };
 
+  const smoothScrollTo = (target) => {
+    if (!carouselRef.current) return;
+    carouselRef.current.scrollTo({
+      left: target,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    return () => clearTimeout(scrollTimeout.current);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-backgound flex items-center justify-center">
+    <div className="min-h-screen bg-backgound flex flex-col items-center justify-center">
+      {/* 🔹 Auto-scrolling Text Section */}
+      <div className="w-full overflow-hidden bg-transparent py-12 mb-20 relative px-3 sm:px-6 md:px-8 lg:px-20">
+        <div className="relative flex whitespace-nowrap">
+          <motion.div
+            className="flex gap-32 text-4xl sm:text-6xl lg:text-8xl font-light text-[#0A374E] tracking-wide"
+            style={{
+              fontFamily: "Georgia, serif",
+              whiteSpace: "nowrap",
+            }}
+            animate={{ x: ["0%", "-100%"] }}
+            transition={{
+              repeat: Infinity,
+              duration: 40,
+              ease: "linear",
+            }}
+          >
+            <span className="flex gap-32 items-center">
+              <span>Next-Gen Living</span>
+              <span>Seamless Home Connectivity</span>
+              <span>Modern Luxury</span>
+              <span>Future Ready Spaces</span>
+            </span>
+            <span className="flex gap-32 items-center ml-32">
+              <span>Next-Gen Living</span>
+              <span>Seamless Home Connectivity</span>
+              <span>Modern Luxury</span>
+              <span>Future Ready Spaces</span>
+            </span>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* 🔹 Property Carousel Section */}
       <div className="w-full px-3 sm:px-6 md:px-8 lg:px-20">
         <div className="bg-white p-5 rounded-2xl overflow-hidden w-full mx-auto relative xl:aspect-[1300/600]">
-        <div
-  ref={carouselRef}
-  onScroll={handleScroll}
-  className="flex overflow-x-auto scroll-smooth snap-x snap-mandatory gap-6 h-full
-             scrollbar-none -mb-2" // hide scrollbar
->
-
+          <div
+            ref={carouselRef}
+            onScroll={handleScroll}
+            className="flex overflow-x-auto snap-x snap-mandatory gap-6 h-full scrollbar-none -mb-2 scroll-smooth"
+          >
             {slides.map((slide, index) => (
               <motion.div
                 key={index}
-                className="flex-shrink-0 w-full lg:w-full grid grid-cols-1 lg:grid-cols-[37.7%_62.3%] gap-6 lg:gap-0 h-full rounded-xl bg-backgound snap-start"
+                className="flex-shrink-0 w-full grid grid-cols-1 lg:grid-cols-[37.7%_62.3%] gap-6 lg:gap-0 h-full rounded-xl bg-backgound snap-start"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: currentSlide === index ? 1 : 0.5 }}
+                animate={{ opacity: currentSlide === index ? 1 : 0.6 }}
                 transition={{ duration: 0.6 }}
               >
                 {/* Left Content */}
