@@ -3,7 +3,7 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 
 const careerHeroData = {
   backgroundImage:
-    "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&h=1080&fit=crop",
+    "/AboutHero.jpg",
   title: "Join Our Team",
   underline: true,
 };

@@ -197,13 +197,13 @@ const MeetOurTeam = () => {
                 <div className="mt-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   <button
                     onClick={() => window.open(`https://wa.me/${member.phone}`, "_blank")}
-                    className="button-hover flex items-center justify-center gap-4 bg-primary hover:bg-teal-700 text-white px-7 py-3 rounded-full transition-colors duration-200 text-sm sm:text-base font-medium"
+                    className="button-hover flex items-center justify-center gap-4 bg-primary hover:bg-black text-white px-7 py-3 rounded-full transition-colors duration-200 text-sm sm:text-base font-medium"
                   >
                     Contact
                     <img src="/whatsapplogo.png" alt="WhatsApp" className="w-8 h-8 object-contain" />
                   </button>
 
-                  <button className="flex items-center justify-center gap-2 text-primary hover:text-teal-700 transition-colors duration-200 group text-sm sm:text-base font-medium px-5 py-3">
+                  <button className="flex items-center justify-center gap-2 text-primary hover:text-black transition-colors duration-200 group text-sm sm:text-base font-medium px-5 py-3">
                     Learn More
                     <ArrowRight className="learn-more-arrow w-5 h-5" />
                   </button>
