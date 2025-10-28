@@ -1,9 +1,18 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { NEWS_API, BASE_URL } from "../../config";
 
 export default function RealEstateNewsSlider() {
-  const articles = [
+  const [articles, setArticles] = useState([]);
+  const [hoveredId, setHoveredId] = useState(null);
+  const [visibleMiddleIndex, setVisibleMiddleIndex] = useState(1);
+  const [loading, setLoading] = useState(true);
+
+  const sliderRef = useRef(null);
+
+  // ✅ Fallback Data (used only if API fails)
+  const fallbackArticles = [
     {
       id: 1,
       category: "PROPERTY",
@@ -28,37 +37,60 @@ export default function RealEstateNewsSlider() {
       image:
         "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
     },
-    {
-      id: 4,
-      category: "MODERN",
-      date: "Jul 05, 2025",
-      title: "Another Example of Modern Property News",
-      image:
-        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=300&fit=crop",
-    },
-    {
-      id: 5,
-      category: "DESIGN",
-      date: "Jul 08, 2025",
-      title: "Modern Design Ideas for Urban Properties",
-      image:
-        "https://images.unsplash.com/photo-1599423300746-b62533397364?w=400&h=300&fit=crop",
-    },
   ];
 
-  const sliderRef = useRef(null);
-  const [hoveredId, setHoveredId] = useState(null);
-  const [visibleMiddleIndex, setVisibleMiddleIndex] = useState(1); // default to 2nd card visible
+  // ✅ Fetch dynamic data from API
+  const fetchProperties = async () => {
+    const token = localStorage.getItem("token");
+    console.log("🟢 Fetching properties from API:", NEWS_API);
+    console.log("🔑 Using token:", token ? "Present ✅" : "Missing ❌");
 
-  // Calculate middle card based on screen size
-  const updateMiddleIndex = () => {
-    if (window.innerWidth >= 1024) {
-      setVisibleMiddleIndex(1); // middle of 3 visible cards
-    } else if (window.innerWidth >= 768) {
-      setVisibleMiddleIndex(0); // middle of 2 visible cards
-    } else {
-      setVisibleMiddleIndex(0); // only 1 visible card
+    try {
+      const res = await fetch(NEWS_API, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      console.log("📩 API Response Status:", res.status);
+
+      if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
+      const data = await res.json();
+      console.log("📦 Raw API Data:", data);
+
+      if (data?.properties?.length > 0) {
+        console.log(`✅ ${data.properties.length} properties fetched successfully!`);
+
+        const formatted = data.properties.map((item) => ({
+          id: item._id,
+          category: item.category || "PROPERTY",
+          date: item.date ? new Date(item.date).toDateString() : "No Date",
+          title: item.title || "Untitled Property",
+          image: item.image
+            ? item.image.startsWith("http")
+              ? item.image
+              : `${BASE_URL}${item.image}`
+            : "https://via.placeholder.com/400x300?text=No+Image",
+        }));
+
+        setArticles(formatted);
+      } else {
+        console.warn("⚠️ No properties found — using fallback data.");
+        setArticles(fallbackArticles);
+      }
+    } catch (err) {
+      console.error("❌ Fetch properties failed:", err);
+      setArticles(fallbackArticles);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  useEffect(() => {
+    fetchProperties();
+  }, []);
+
+  // ✅ Update middle index based on screen width
+  const updateMiddleIndex = () => {
+    setVisibleMiddleIndex(window.innerWidth >= 1024 ? 1 : 0);
   };
 
   useEffect(() => {
@@ -67,6 +99,7 @@ export default function RealEstateNewsSlider() {
     return () => window.removeEventListener("resize", updateMiddleIndex);
   }, []);
 
+  // ✅ Scroll controls
   const scrollLeft = () => {
     const cardWidth = sliderRef.current.firstChild.offsetWidth + 24;
     sliderRef.current.scrollBy({ left: -cardWidth, behavior: "smooth" });
@@ -77,10 +110,18 @@ export default function RealEstateNewsSlider() {
     sliderRef.current.scrollBy({ left: cardWidth, behavior: "smooth" });
   };
 
+  if (loading) {
+    return (
+      <section className="min-h-screen flex justify-center items-center">
+        <p className="text-gray-500 text-lg">Loading news...</p>
+      </section>
+    );
+  }
+
   return (
     <section className="min-h-screen bg-backgound py-12 px-4 sm:px-6 lg:px-20">
       <div className="max-w-full mx-auto">
-        {/* Top Section */}
+        {/* Header */}
         <div className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12">
           <p className="text-sm sm:text-base text-gray-600 whitespace-nowrap">
             News & Insights
@@ -88,16 +129,10 @@ export default function RealEstateNewsSlider() {
           <div className="flex-1 h-px bg-gray-300"></div>
         </div>
 
-        {/* Header & Button */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12 gap-4">
-          <div>
-            <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 leading-tight
-             bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text">
-              Lorem Ipsum Is Simply
-              <br />
-              Dummy Text Of The Printing
-            </h1>
-          </div>
+          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 leading-tight bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text">
+            Latest Property Updates
+          </h1>
           <button className="bg-primary hover:bg-black text-white px-7 py-4 text-xl rounded-lg font-semibold transition-colors whitespace-nowrap">
             More News
           </button>
@@ -105,7 +140,7 @@ export default function RealEstateNewsSlider() {
 
         {/* Slider */}
         <div className="relative">
-          {/* Arrows */}
+          {/* Navigation arrows */}
           <div className="absolute top-1/2 -translate-y-1/2 left-0 z-10">
             <button
               onClick={scrollLeft}
@@ -170,18 +205,16 @@ export default function RealEstateNewsSlider() {
                   <div className="px-6 sm:px-8 h-auto flex-1 flex flex-col w-full justify-center">
                     <div className="flex flex-col gap-6">
                       <div className="flex items-center gap-8">
-                        <span className="text-md font-lufga text-gray-900 uppercase tracking-wider px-2 py-1 border border-gray-300 rounded-full">
+                        <span className="text-md uppercase tracking-wider px-2 py-1 border border-gray-300 rounded-full">
                           {article.category}
                         </span>
                         <span className="text-md text-gray-500">
                           {article.date}
                         </span>
                       </div>
-                      <div>
-                        <h3 className="text-3xl font-bold text-gray-900">
-                          {article.title}
-                        </h3>
-                      </div>
+                      <h3 className="text-2xl font-bold text-gray-900">
+                        {article.title}
+                      </h3>
                     </div>
                   </div>
                 </motion.div>

@@ -31,9 +31,18 @@ const AnimatedHeading = ({ text, className }) => {
     },
   };
   return (
-    <motion.h1 className={className} variants={container} initial="hidden" animate="visible">
+    <motion.h1
+      className={className}
+      variants={container}
+      initial="hidden"
+      animate="visible"
+    >
       {letters.map((char, index) => (
-        <motion.span key={index} variants={child} className={char === " " ? "inline-block w-2" : ""}>
+        <motion.span
+          key={index}
+          variants={child}
+          className={char === " " ? "inline-block w-2" : ""}
+        >
           {char}
         </motion.span>
       ))}
@@ -91,17 +100,31 @@ const TextareaWithIcon = ({ name, placeholder, value, onChange, Icon }) => (
 );
 
 /* ---------------- Contact Form ---------------- */
-const ContactForm = ({ formData, handleChange, handleSubmit }) => (
+export const ContactForm = ({ formData, handleChange, handleSubmit }) => (
   <motion.div
-    className="flex flex-col bg-white p-4 sm:p-6 md:p-8 rounded-xl justify-between space-y-4 sm:space-y-6 md:space-y-8 w-full mx-auto"
+    className="flex flex-col bg-white p-4 sm:p-6 md:p-8 rounded-xl justify-between space-y-4 sm:space-y-6 md:space-y-8 w-full mx-auto shadow-md"
     initial={{ opacity: 0, y: 40 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.3 }}
     transition={{ duration: 0.6 }}
   >
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-      <InputWithIcon type="text" name="name" placeholder="Your name **" value={formData.name} onChange={handleChange} Icon={User} />
-      <InputWithIcon type="email" name="email" placeholder="Email Address **" value={formData.email} onChange={handleChange} Icon={Mail} />
+      <InputWithIcon
+        type="text"
+        name="name"
+        placeholder="Your name **"
+        value={formData.name}
+        onChange={handleChange}
+        Icon={User}
+      />
+      <InputWithIcon
+        type="email"
+        name="email"
+        placeholder="Email Address **"
+        value={formData.email}
+        onChange={handleChange}
+        Icon={Mail}
+      />
     </div>
 
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -134,11 +157,17 @@ const ContactForm = ({ formData, handleChange, handleSubmit }) => (
       />
     </div>
 
-    <TextareaWithIcon name="message" placeholder="Message **" value={formData.message} onChange={handleChange} Icon={MessageCircle} />
+    <TextareaWithIcon
+      name="message"
+      placeholder="Message **"
+      value={formData.message}
+      onChange={handleChange}
+      Icon={MessageCircle}
+    />
 
     <button
       onClick={handleSubmit}
-      className="w-full bg-primary text-white text-base sm:text-lg font-medium py-3 sm:py-4 rounded-md transition-colors duration-200"
+      className="w-full bg-primary text-white text-base sm:text-lg font-medium py-3 sm:py-4 rounded-md transition-colors duration-200 hover:bg-primary/90"
     >
       Submit
     </button>
@@ -158,7 +187,8 @@ export default function RealEstateContact() {
     message: "",
   });
 
-  const handleChange = (e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChange = (e) =>
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -171,87 +201,172 @@ export default function RealEstateContact() {
     visible: { opacity: 1, y: 0 },
   };
 
-  return (
-    <div className="bg-backgound min-h-screen py-12">
-      <div className="w-full px-4 sm:px-8 md:px-16 lg:px-20 xl:px-20">
-        {/* Animated Heading */}
-        <motion.div className="text-center mb-8 sm:mb-12">
-          <AnimatedHeading
-            text="Any Inquiry"
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-[240px] font-black text-gray-900 bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text mb-2 sm:mb-3"
-          />
-          <p className="text-base sm:text-3xl text-gray-500">Get in touch</p>
-        </motion.div>
+  /* ---------------- HOME PAGE ---------------- */
+  if (currentPath === "/") {
+    return (
+      <div className="bg-backgound min-h-screen py-12">
+        <div className="w-full px-4 sm:px-8 md:px-16 lg:px-20 xl:px-20">
+          <motion.div className="text-center mb-8 sm:mb-12">
+            <AnimatedHeading
+              text="Any Inquiry"
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-[240px] font-black text-gray-900 bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text mb-2 sm:mb-3"
+            />
+            <p className="text-base sm:text-3xl text-gray-500">Get in touch</p>
+          </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 sm:gap-8 lg:gap-12 xl:gap-16">
-          {/* Left Column */}
-          <motion.div
-                        className="flex flex-col justify-between space-y-8 sm:space-y-10"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, amount: 0.3 }}
-                        variants={fadeUpVariant}
-                        transition={{ duration: 0.6, delay: 0.2 }}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 sm:gap-8 lg:gap-12 xl:gap-16">
+            <motion.div
+              className="flex flex-col justify-between space-y-8 sm:space-y-10"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={fadeUpVariant}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+                  Connect
+                </h2>
+                <div className="space-y-2 sm:space-y-4 text-gray-600 text-base sm:text-lg lg:text-xl">
+                  <p>info@mafandcoproperties.com</p>
+                  <p>+971 43522155</p>
+                </div>
+              </div>
+
+              <div>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+                  Corporate Headquarters
+                </h2>
+                <div className="space-y-1 sm:space-y-2 text-gray-600 text-base sm:text-lg lg:text-xl mb-4 sm:mb-6">
+                  <p>MAF & Co Properties LLC,</p>
+                  <p>Office-12A07, Floor - 12A,</p>
+                  <p>DAMAC XL Tower</p>
+                  <p>Business Bay</p>
+                  <p>Dubai, UAE</p>
+                </div>
+
+                <motion.div className="flex gap-3 sm:gap-4">
+                  {[Facebook, Youtube, Linkedin].map((Icon, idx) => (
+                    <motion.a
+                      key={idx}
+                      href="#"
+                      className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-gray-700"
+                      whileHover="hover"
+                      initial="rest"
+                      animate="rest"
                     >
-                        <div>
-                            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Connect</h2>
-                            <div className="space-y-2 sm:space-y-4 text-gray-600 text-base sm:text-lg lg:text-xl">
-                                <p>info@mafandcoproperties.com</p>
-                                <p>+971 43522155</p>
-                            </div>
-                        </div>
+                      <Icon size={20} className="z-10" />
+                      <span className="absolute inset-0 rounded-full border border-gray-300 z-0" />
+                      <motion.span
+                        className="absolute inset-0 rounded-full border border-black z-20"
+                        variants={{
+                          rest: { scale: 0 },
+                          hover: {
+                            scale: 1,
+                            transition: { duration: 0.3, ease: "easeOut" },
+                          },
+                        }}
+                      />
+                    </motion.a>
+                  ))}
+                </motion.div>
+              </div>
+            </motion.div>
 
-                        <div>
-                            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Corporate Headquarters</h2>
-                            <div className="space-y-1 sm:space-y-2 text-gray-600 text-base sm:text-lg lg:text-xl mb-4 sm:mb-6">
-                                <p>MAF & Co Properties LLC,</p>
-                                <p>Office-12A07, Floor - 12A,</p>
-                                <p>DAMAC XL Tower</p>
-                                <p>Business Bay</p>
-                                <p>Dubai, UAE</p>
-                            </div>
-
-                            <motion.div className="flex gap-3 sm:gap-4">
-                                {[
-                                    { Icon: Facebook, href: "https://facebook.com" },
-                                    { Icon: Youtube, href: "https://youtube.com" },
-                                    { Icon: Linkedin, href: "https://linkedin.com" },
-                                ].map(({ Icon, href }, idx) => (
-                                    <motion.a
-                                        key={idx}
-                                        href={href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-gray-700"
-                                        whileHover="hover"
-                                        initial="rest"
-                                        animate="rest"
-                                    >
-                                        {/* Icon */}
-                                        <Icon size={20} className="z-10" />
-
-                                        {/* Default thin border */}
-                                        <span className="absolute inset-0 rounded-full border border-gray-300 z-0" />
-
-                                        {/* Hover thicker border */}
-                                        <motion.span
-                                            className="absolute inset-0 rounded-full border border-black z-20"
-                                            variants={{
-                                                rest: { scale: 0, opacity: 1, borderWidth: 1 },  // start thin at center
-                                                hover: { scale: 1, opacity: 1, borderWidth: 2, transition: { duration: 0.3, ease: "easeOut" } }, // grows thick
-                                            }}
-                                        />
-                                    </motion.a>
-                                ))}
-                            </motion.div>
-
-                        </div>
-                    </motion.div>
-
-          {/* Right Column */}
-          <ContactForm formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
+            <ContactForm
+              formData={formData}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+            />
+          </div>
         </div>
       </div>
+    );
+  }
+
+  /* ---------------- NON-HOME PAGE ---------------- */
+  return (
+    <div className="bg-backgound min-h-screen py-12">
+    <div className="w-full px-4 sm:px-8 md:px-16 lg:px-20 xl:px-20">
+    <div className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-12">
+          <p className="text-sm sm:text-base text-gray-600 whitespace-nowrap">
+            Let's Talk Now
+          </p>
+          <div className="flex-1 h-px bg-gray-300"></div>
+        </div>
+      <motion.div className=" mb-10 sm:mb-12  w-full lg:w-[75%] pb-8">
+        <AnimatedHeading
+          text="Get in Touch with Our Team for Personalized Real Estate Assistance"
+          className="text-4xl lg:text-6xl font-black text-gray-900 bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text mb-2 sm:mb-3"
+        />
+      </motion.div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 sm:gap-8 lg:gap-12 xl:gap-16">
+        <motion.div
+          className="flex flex-col justify-between space-y-8 sm:space-y-10"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={fadeUpVariant}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+              Connect
+            </h2>
+            <div className="space-y-2 sm:space-y-4 text-gray-600 text-base sm:text-lg lg:text-xl">
+              <p>info@mafandcoproperties.com</p>
+              <p>+971 43522155</p>
+            </div>
+          </div>
+
+          <div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+              Corporate Headquarters
+            </h2>
+            <div className="space-y-1 sm:space-y-2 text-gray-600 text-base sm:text-lg lg:text-xl mb-4 sm:mb-6">
+              <p>MAF & Co Properties LLC,</p>
+              <p>Office-12A07, Floor - 12A,</p>
+              <p>DAMAC XL Tower</p>
+              <p>Business Bay</p>
+              <p>Dubai, UAE</p>
+            </div>
+
+            <motion.div className="flex gap-3 sm:gap-4">
+              {[Facebook, Youtube, Linkedin].map((Icon, idx) => (
+                <motion.a
+                  key={idx}
+                  href="#"
+                  className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-gray-700"
+                  whileHover="hover"
+                  initial="rest"
+                  animate="rest"
+                >
+                  <Icon size={20} className="z-10" />
+                  <span className="absolute inset-0 rounded-full border border-gray-300 z-0" />
+                  <motion.span
+                    className="absolute inset-0 rounded-full border border-black z-20"
+                    variants={{
+                      rest: { scale: 0 },
+                      hover: {
+                        scale: 1,
+                        transition: { duration: 0.3, ease: "easeOut" },
+                      },
+                    }}
+                  />
+                </motion.a>
+              ))}
+            </motion.div>
+          </div>
+        </motion.div>
+
+        <ContactForm
+          formData={formData}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+        />
+      </div>
     </div>
+  </div>
   );
 }

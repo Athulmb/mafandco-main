@@ -9,7 +9,7 @@ export const ABOUT_API = `${BASE_URL}/api/about`;
 export const EVENTS_API = `${BASE_URL}/api/events`;
 
 // Projects API
-export const PROJECTS_API = `${BASE_URL}/api/projects`;
+export const OFFPLANS_API = `${BASE_URL}/api/projects`;
 
 
 export const Team_API = `${BASE_URL}/api/teammembers`;
@@ -22,6 +22,10 @@ export const SLIDES_API = `${BASE_URL}/api/slides`;
 
 // frontend/src/config.js
 export const JOBS_API = `${BASE_URL}/api/jobs`;
+
+
+export const NEWS_API = `${BASE_URL}/api/property`;
+
 
 
 

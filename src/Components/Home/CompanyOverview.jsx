@@ -1,48 +1,103 @@
-import React, { useState } from 'react';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import './CompanyOverview.css'; // blinking CSS
+// frontend/src/pages/CompanyOverview.jsx
+import React, { useState, useEffect } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { SLIDES_API, BASE_URL } from "../../config";
+import "./CompanyOverview.css"; // blinking CSS
 
 export default function CompanyOverview() {
+  const [slides, setSlides] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const slides = [
+  // 🧩 Dummy fallback slides (used only if API fails)
+  const fallbackSlides = [
     {
-      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&h=800&fit=crop",
-      caption: "Lorem Ipsum Is Simply Dummy Text Of The Printing."
+      image:
+        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&h=800&fit=crop",
+      caption: "Lorem Ipsum Is Simply Dummy Text Of The Printing.",
     },
     {
-      image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=800&fit=crop",
-      caption: "Exceptional Architecture And Design Excellence."
+      image:
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=800&fit=crop",
+      caption: "Exceptional Architecture And Design Excellence.",
     },
     {
-      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=800&fit=crop",
-      caption: "Luxury Living Spaces For Modern Lifestyles."
-    }
+      image:
+        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=800&fit=crop",
+      caption: "Luxury Living Spaces For Modern Lifestyles.",
+    },
   ];
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  // 🧠 Fetch slides dynamically
+  const fetchSlides = async () => {
+    console.log("🟢 Fetching company overview slides from:", SLIDES_API);
 
-  // Variants for fading up animations
+    try {
+      const res = await fetch(SLIDES_API);
+      console.log("📩 Response Status:", res.status);
+
+      if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
+      const data = await res.json();
+      console.log("📦 Raw Slide Data:", data);
+
+      if (data.success && data.slides && data.slides.length > 0) {
+        console.log(`✅ ${data.slides.length} slides fetched successfully.`);
+        const formatted = data.slides.map((s) => ({
+          image: s.image.startsWith("http")
+            ? s.image
+            : `${BASE_URL}${s.image}`,
+          caption: s.caption || "Untitled Slide",
+        }));
+        setSlides(formatted);
+      } else {
+        console.warn("⚠️ No slides found, using fallback slides.");
+        setSlides(fallbackSlides);
+      }
+    } catch (err) {
+      console.error("❌ Failed to fetch slides:", err);
+      setSlides(fallbackSlides);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchSlides();
+  }, []);
+
+  const nextSlide = () =>
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  const prevSlide = () =>
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+
+  // Motion variants
   const fadeUpVariants = {
     initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
-    exit: { opacity: 0, y: -20, transition: { duration: 0.5 } }
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+    exit: { opacity: 0, y: -20, transition: { duration: 0.5 } },
   };
 
   const slideVariants = {
     initial: { opacity: 0, scale: 0.95, y: 20 },
-    animate: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.6 } },
-    exit: { opacity: 0, scale: 0.95, y: -20, transition: { duration: 0.5 } }
+    animate: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: { duration: 0.6 },
+    },
+    exit: { opacity: 0, scale: 0.95, y: -20, transition: { duration: 0.5 } },
   };
 
   const logoVariants = {
     initial: { opacity: 0, y: 20 },
-    animate: { opacity: 0.8, y: 0, transition: { duration: 1, ease: "easeOut" } }
+    animate: { opacity: 0.8, y: 0, transition: { duration: 1, ease: "easeOut" } },
   };
 
-  // Letter-by-letter heading animation variants
   const headingContainer = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { staggerChildren: 0.03 } },
@@ -50,13 +105,24 @@ export default function CompanyOverview() {
 
   const letterVariant = {
     hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { type: "spring", damping: 12, stiffness: 120 } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: "spring", damping: 12, stiffness: 120 },
+    },
   };
+
+  if (loading) {
+    return (
+      <section className="min-h-screen flex justify-center items-center">
+        <p className="text-gray-500 text-lg">Loading company overview...</p>
+      </section>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-backgound py-12 sm:py-16 lg:py-16 px-3 sm:px-6 md:px-8 lg:px-20">
-
-      {/* Top Header with Scroll-Triggered Heading Animation */}
+      {/* Header */}
       <motion.div
         variants={fadeUpVariants}
         initial="initial"
@@ -73,14 +139,13 @@ export default function CompanyOverview() {
 
         {/* Animated Heading */}
         <motion.h1
-          className="text-xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight max-w-5xl
-          bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text flex flex-wrap"
+          className="text-xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold text-gray-900 leading-tight max-w-5xl bg-gradient-to-b from-[#4DAEC1] to-[#0A374E] text-transparent bg-clip-text flex flex-wrap"
           variants={headingContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          {"Exceptional Locations, Unrivaled Lifestyles. Exceptional Locations, Unrivaled Lifestyles.".split("").map(
+          {"Exceptional Locations, Unrivaled Lifestyles.".split("").map(
             (char, idx) => (
               <motion.span key={idx} variants={letterVariant}>
                 {char === " " ? "\u00A0" : char}
@@ -90,9 +155,8 @@ export default function CompanyOverview() {
         </motion.h1>
       </motion.div>
 
-      {/* Carousel and Content */}
+      {/* Carousel and Text */}
       <div className="w-full flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-12 lg:pt-20">
-
         {/* Column 1: Logo */}
         <div className="flex-shrink-0 w-[30%] mdw-[20%] lg:w-[10%] flex justify-center lg:justify-start">
           <div className="w-full">
@@ -111,8 +175,6 @@ export default function CompanyOverview() {
         {/* Column 2: Carousel */}
         <div className="w-full lg:w-[34%]">
           <div className="bg-white rounded-3xl shadow-xl p-4 sm:p-5 md:p-3 relative">
-
-            {/* AnimatePresence for carousel */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentSlide}
@@ -121,18 +183,15 @@ export default function CompanyOverview() {
                 animate="animate"
                 exit="exit"
               >
-                {/* Image */}
                 <div className="relative overflow-hidden rounded-lg h-[220px] sm:h-[260px] md:h-[280px] lg:h-[300px]">
                   <img
-                    src={slides[currentSlide].image}
+                    src={slides[currentSlide]?.image}
                     alt="Property showcase"
                     className="w-full h-full object-cover"
                   />
                 </div>
-
-                {/* Caption */}
                 <p className="text-base w-[70%] sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 px-1 -mt-1 py-12">
-                  {slides[currentSlide].caption}
+                  {slides[currentSlide]?.caption}
                 </p>
               </motion.div>
             </AnimatePresence>
@@ -155,7 +214,7 @@ export default function CompanyOverview() {
               </button>
             </div>
 
-            {/* Logo at bottom right with blinking */}
+            {/* Blinking Logo */}
             <motion.img
               src="/logo2.png"
               alt="Company Logo"
@@ -186,18 +245,16 @@ export default function CompanyOverview() {
             </svg>
           </div>
 
-          {/* Text */}
+          {/* Text Content */}
           <div className="space-y-5 sm:space-y-6 relative z-10">
             <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae risus eu leo volutpat volutpat. Vivamus egestas, ipsum nec ultrices accumsan, magna arcu blandit sapien, ac vulputate ipsum libero vitae mi. Duis vel sodales elit. Cras nec porttitor felis, vitae pretium magna. Suspendisse id justo non tortor imperdiet dictum in nec est.
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry...
             </p>
             <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-              when an unknown printer took a galley of type and scrambled it to make a.Nullam feugiat, eros sit amet viverra egestas, lorem massa euismod velit, ac sollicitudin magna elit ut ligula. Aenean vitae sem ac nulla efficitur consequat. Maecenas faucibus tempor massa, in convallis nisl sagittis in. Fusce dignissim, justo at bibendum fermentum, lorem ex laoreet risus, sed luctus eros nisl sed nisi. Sed id tincidunt libero, vel consequat urna.
+              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...
             </p>
             <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry.Vestibulum consequat est eget nibh pulvinar, in iaculis orci varius. Nunc sit amet dolor metus. Cras malesuada, lacus non ultricies faucibus, turpis erat tincidunt nulla, ut tempus libero elit vel velit. Sed pharetra, mauris in rhoncus sagittis, magna justo viverra ligula, vel lacinia urna leo ac ligula.
+              Vestibulum consequat est eget nibh pulvinar, in iaculis orci varius...
             </p>
           </div>
         </motion.div>
