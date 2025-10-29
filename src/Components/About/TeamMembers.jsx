@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { Team_API } from '../../config'; // same API endpoint as AdminTeamMembers
 
 const MeetOurTeam = () => {
-  const defaultTeamImage = "/team1.png";
+  const defaultTeamImage = "/member1.png";
 
   // ---------- STATE ----------
   const [teamMembers, setTeamMembers] = useState([]);
@@ -11,13 +11,14 @@ const MeetOurTeam = () => {
 
   // ---------- DUMMY DATA ----------
   const dummyData = [
-    { id: 1, name: "Pravin Manokaran", position: "Associate Director", imageUrl: "/member1.png", description: "Experienced leader in real estate and development.", whatsapp: "919876543210" },
-    { id: 2, name: "Muhammed Sulaiman", position: "Associate Director", imageUrl: "/member2.png", description: "Focused on strategy and client success.", whatsapp: "919812345678" },
-    { id: 3, name: "Aman Samith", position: "Associate Director", imageUrl: "/member3.png", description: "Dedicated to innovation and teamwork.", whatsapp: "919876512345" },
-    { id: 4, name: "Muhammed Rihan", position: "Marketing", imageUrl: "/member4.png", description: "Drives marketing and branding excellence.", whatsapp: "919898765432" },
-    { id: 5, name: "Maham Rasool", position: "HR", imageUrl: "/member5.png", description: "Empowers our workforce with care and talent management.", whatsapp: "919812398765" },
-    { id: 6, name: "Mohamed Yasir", position: "Admin", imageUrl: "/member6.png", description: "Ensures smooth daily operations and coordination.", whatsapp: "919876598712" },
-  ];
+    { id: 1, name: "Pravin Manokaran", position: "Associate Director", image: "/member1.png", description: "Lorem ipsum...", phone: "919876543210" },
+    { id: 2, name: "Muhammed Sulaiman", position: "Associate Director", image: "/member2.png", description: "Lorem ipsum...", phone: "919812345678" },
+    { id: 3, name: "Aman Samith", position: "Associate Director", image: "/member3.png", description: "Lorem ipsum...", phone: "919876512345" },
+    { id: 4, name: "Muhammed Rihan", position: "Marketing", image: "/member4.png", description: "Lorem ipsum...", phone: "919898765432" },
+    { id: 5, name: "Maham Rasool", position: "HR", image: "/member5.png", description: "Lorem ipsum...", phone: "919812398765" },
+    { id: 6, name: "Mohamed Yasir", position: "Admin", image: "/member6.png", description: "Lorem ipsum...", phone: "919876598712" },
+    { id: 7, name: "Mohamed Yasir", position: "Admin", image: "/member7.png", description: "Lorem ipsum...", phone: "919812367890" },  ];
+ 
 
   // ---------- FETCH FROM API ----------
   useEffect(() => {

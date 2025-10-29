@@ -14,7 +14,7 @@ const navbarData = {
     { label: "Contact Us", href: "/contact" },
   ],
   dropdown: [
-    { label: "Off-Plans", href: "/projects" },
+    { label: "Off-Plans", href: "/offplans" },
     { label: "Ready to move-in", href: "/movein" },
   ],
 };
