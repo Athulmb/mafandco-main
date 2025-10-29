@@ -57,12 +57,12 @@ const AboutLanding = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Scroll animation
+  // Scroll animation (only active for lg+)
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
-  const yTransform = useTransform(scrollYProgress, [0, 1], [0, 0]); // you can adjust for animation
+  const yTransform = useTransform(scrollYProgress, [0, 1], [0, 0]);
 
   return (
     <motion.div
@@ -72,10 +72,12 @@ const AboutLanding = () => {
       <div className="max-w-full mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-8 xl:gap-x-12 items-start">
 
-          {/* LEFT: Sticky Content Section */}
+          {/* LEFT: Content Section (Sticky only for lg and above) */}
           <motion.div
-            className="lg:col-span-1 flex flex-col justify-start sticky top-24"
-            style={{ y: yTransform }}
+            className={`lg:col-span-1 flex flex-col justify-start ${
+              !isMobile ? "sticky top-24" : ""
+            }`}
+            style={!isMobile ? { y: yTransform } : {}}
           >
             <div className="flex items-center mb-4 sm:mb-6">
               <span className="text-primary text-xs sm:text-sm font-medium px-3 py-1 rounded-full">
@@ -151,11 +153,11 @@ const AboutLanding = () => {
           </motion.div>
 
           {/* RIGHT: Image Section */}
-          <div className="lg:col-span-1 flex flex-col gap-6">
+          <div className="lg:col-span-1 flex flex-col gap-6 pt-10 lg:pt-0">
             {data.images.map((img, index) => (
               <div
                 key={index}
-                className="w-[88%] overflow-hidden rounded-2xl shadow-lg self-end"
+                className="w-full lg:w-[88%] overflow-hidden rounded-2xl shadow-lg self-end"
                 style={{ aspectRatio: "550 / 662" }}
               >
                 <img

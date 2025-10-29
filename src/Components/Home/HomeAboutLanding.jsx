@@ -88,7 +88,7 @@ const HomeAboutLanding = () => {
             {data.images.map((img, index) => (
               <motion.div
                 key={index}
-                className="w-[88%] overflow-hidden rounded-2xl shadow-lg"
+                className="w-full lg:w-[88%] overflow-hidden rounded-2xl shadow-lg"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
