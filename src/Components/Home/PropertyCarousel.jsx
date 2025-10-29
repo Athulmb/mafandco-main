@@ -152,7 +152,7 @@ export default function PropertyCarousel() {
                   <p className="text-gray-600 text-base sm:text-lg leading-relaxed mb-8">
                     {slide.description}
                   </p>
-                  <button className="inline-flex items-center gap-2 bg-primary hover:bg-black text-white px-10 py-4 rounded-md font-semibold text-lg transition-colors">
+                  <button className="inline-flex w-1/2 items-center gap-2 bg-primary hover:bg-black text-white px-10 py-4 rounded-md font-semibold text-lg transition-colors">
                     Learn More
                   </button>
                 </div>
